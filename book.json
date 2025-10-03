@@ -4,7 +4,7 @@
         "Nazov knihy": "Cesta do stredu Zeme",
         "cislo ISBN": "ISBN231354684321684351",
         "Rok vydania": 1995,
-        "Pozicana": "Y",
+        "Pozicana": "N",
         "Kategoria": "Sci-fi",
         "Datum vypozicania": null,
         "Koniec vypozicky": null
@@ -14,7 +14,7 @@
         "Nazov knihy": "Perla z piesku",
         "cislo ISBN": "ISBN789132165894651",
         "Rok vydania": 2021,
-        "Pozicana": "Y",
+        "Pozicana": "N",
         "Kategoria": "Historicky roman",
         "Datum vypozicania": null,
         "Koniec vypozicky": null
@@ -64,7 +64,7 @@
         "Nazov knihy": "Konec prokrastinace",
         "cislo ISBN": "ISBN561324687354654",
         "Rok vydania": 2019,
-        "Pozicana": "Y",
+        "Pozicana": "N",
         "Kategoria": "odborne a naucne",
         "Datum vypozicania": null,
         "Koniec vypozicky": null
@@ -73,66 +73,6 @@
         "Meno autora": "Joel Marsh",
         "Nazov knihy": "UX pro zacatecniky",
         "cislo ISBN": "ISBN978-80-7413-397-8",
-        "Rok vydania": 2019,
-        "Pozicana": "Y",
-        "Kategoria": "odborne a naucne",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
-    },
-    {
-        "Meno autora": "Jules Verne",
-        "Nazov knihy": "Cesta do stredu Zeme",
-        "cislo ISBN": "ISBN231354684321684351",
-        "Rok vydania": 1995,
-        "Pozicana": "Y",
-        "Kategoria": "Sci-fi",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
-    },
-    {
-        "Meno autora": "Tessa Afsharova",
-        "Nazov knihy": "Perla z piesku",
-        "cislo ISBN": "ISBN789132165894651",
-        "Rok vydania": 2021,
-        "Pozicana": "Y",
-        "Kategoria": "Historicky roman",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
-    },
-    {
-        "Meno autora": "v.p.borovicka",
-        "Nazov knihy": "Vyzvedaci z Tel Avivu",
-        "cislo ISBN": "ISBN1235468189465",
-        "Rok vydania": 1980,
-        "Pozicana": "Y",
-        "Kategoria": "Deketivky",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
-    },
-    {
-        "Meno autora": "Joel Marsh",
-        "Nazov knihy": "UX pro zacatecniky",
-        "cislo ISBN": "ISBN978-80-7413-397-8",
-        "Rok vydania": 2019,
-        "Pozicana": "Y",
-        "Kategoria": "odborne a naucne",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
-    },
-    {
-        "Meno autora": "Ernest Hemingway",
-        "Nazov knihy": "Komu zvonia do hrobu",
-        "cislo ISBN": "ISBN21698765165491",
-        "Rok vydania": 1963,
-        "Pozicana": "Y",
-        "Kategoria": "Svetova proza",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
-    },
-    {
-        "Meno autora": "Petr Ludwig",
-        "Nazov knihy": "Konec prokrastinace",
-        "cislo ISBN": "ISBN561324687354654",
         "Rok vydania": 2019,
         "Pozicana": "Y",
         "Kategoria": "odborne a naucne",

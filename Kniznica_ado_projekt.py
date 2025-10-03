@@ -43,7 +43,7 @@ class Clen:
         self.meno_clena = meno_clena
         self.priezvisko_clena = priezvisko_clena
         self.rok_narodenia = rok_narodenia
-        self.zoznam_pozicanych = []
+        self.zoznam_pozicanych = zoznam_pozicanych
         
 
     def __str__(self):
@@ -141,7 +141,6 @@ class Kniznica:
     def pozicaj_knihu(self):
         vyber_zo_zoznamu = input("Aku knizku chcete pozicat? Napiste nazov knihy: ")
 
-       
 
         for vyber in self.knizny_zoznam:
             if vyber.nazov_knihy.lower() == vyber_zo_zoznamu.lower():
@@ -172,7 +171,7 @@ class Kniznica:
 
                         if vyber.pozicanie == "N":
                             vyber.pozicanie = "Y"
-                            self.knizny_zoznam.append(vyber)
+                            #self.knizny_zoznam.append(vyber)
                             print(f"{vyber.nazov_knihy} je uspesne pozicana.")
 
                             kniha_to_dict = []
@@ -188,9 +187,57 @@ class Kniznica:
                 #else:
                     #print("Kniha je uz pozicana")
 
-                    
-                
 
+    def vratenie_knihy(self):       
+        vratka = input("Napiste nazov knihy, ktoru chcete vratit: ")
+        
+        for vyber in self.knizny_zoznam:
+            if vyber.nazov_knihy.lower() == vratka.lower():
+                if vyber.pozicanie == "Y":
+                    print(f"{vyber.id}: {vyber.nazov_knihy} od {vyber.nazov_autora}")
+
+                    pozicanie = input("Chcete vratit tuto knihu? (napiste Y alebo N): ")
+
+                    if pozicanie == "Y":
+                        existuje = self.najdi_clena()
+                    
+                        if existuje == True:
+                            id_cloveka = int(input("Zadajte ID clena, ktory knihu vracia: "))
+                            for clovek in self.zoznam_clenov:
+                                print(f"vypis {id_cloveka} a {clovek.id}")
+                                if id_cloveka == clovek.id:
+                                    print(f"{vyber.id}")
+                                    print(f"{clovek.zoznam_pozicanych}")
+                                    clovek.zoznam_pozicanych.remove(int(vyber.id))
+                                    
+                                    print("Kniha bola odstranena zo zoznamu.")
+
+                                    clen_to_dict = []
+                                    for person in self.zoznam_clenov:
+                                        data_in_dict = person.clen_dict()
+                                        clen_to_dict.append(data_in_dict)
+        
+    
+                                    with open ("data.json", "w", encoding = "utf-8") as subor:
+                                        json.dump(clen_to_dict, subor, indent = 4, ensure_ascii = False)
+
+                                    if vyber.pozicanie == "Y":
+                                        vyber.pozicanie = "N"
+                                        #self.knizny_zoznam.append(vyber)
+                                        print(f"{vyber.nazov_knihy} je uspesne vratena.")
+
+                                    kniha_to_dict = []
+                                    for kniha in self.knizny_zoznam:
+                                        data_in_dict = kniha.kniha_dict()
+                                        kniha_to_dict.append(data_in_dict)
+            
+    
+                                    with open ("book.json", "w", encoding = "utf-8") as subor:
+                                        json.dump(kniha_to_dict, subor, indent = 4, ensure_ascii = False)
+
+                                    break
+
+                                
     def vymaz_knihu_nazov_knihy(self):
         vymaz_knihu = input("Napis nazov knihy, ktoru chcete vymazat: ")
 
@@ -247,6 +294,9 @@ class Kniznica:
                 existujuci_clen = Clen(clen["Meno"], clen["Priezvisko"], clen["Rok_narodenia"], clen["Pozicane knihy"])
                 self.zoznam_clenov.append(existujuci_clen)
         print("Data zo suboru data.json su nacitane.")
+
+        for clenovia in self.zoznam_clenov:
+            print(f"{clenovia.zoznam_pozicanych}")
  
 
     def pridaj_noveho_clena(self):
@@ -355,21 +405,26 @@ kniznica = Kniznica()
 #kniznica.najdi_knihu_nazov_knihy()
 #kniznica.pridaj_novu_knihu()
 
+kniznica.vypis_zoznam()
+
 print("-----------------------------")
 print("ZOZNAM KNIH")
 print("-----------------------------")
 kniznica.vypis_knizny_zoznam()
 
-print("-----------------------------")
-print("POZICANIE KNIHY")
-print("-----------------------------")
-kniznica.pozicaj_knihu()
+#print("-----------------------------")
+#print("POZICANIE KNIHY")
+#print("-----------------------------")
+#kniznica.pozicaj_knihu()
 
+#print("-----------------------------")
+#print("POZICANIE KNIHY")
+#print("-----------------------------")
+#kniznica.pozicaj_knihu()
 print("-----------------------------")
-print("POZICANIE KNIHY")
+print("VRATENIE KNIHY")
 print("-----------------------------")
-kniznica.pozicaj_knihu()
-
+kniznica.vratenie_knihy()
 
 #kniznica.vypis_knizny_zoznam()
 
