@@ -4,6 +4,61 @@
         "Meno": "Dusan",
         "Priezvisko": "Pirosik",
         "Rok_narodenia": 1990,
-        "Pozicane knihy": []
+        "Požičané knihy": [
+            12
+        ]
+    },
+    {
+        "ID": 2,
+        "Meno": "Lucia",
+        "Priezvisko": "Vrabcekova",
+        "Rok_narodenia": 2000,
+        "Požičané knihy": [
+            3
+        ]
+    },
+    {
+        "ID": 3,
+        "Meno": "Paula ",
+        "Priezvisko": "Paulíková",
+        "Rok_narodenia": 2002,
+        "Požičané knihy": []
+    },
+    {
+        "ID": 4,
+        "Meno": "Gabriel",
+        "Priezvisko": "Benian",
+        "Rok_narodenia": 1993,
+        "Požičané knihy": [
+            4
+        ]
+    },
+    {
+        "ID": 5,
+        "Meno": "Veronika",
+        "Priezvisko": "Hýllová",
+        "Rok_narodenia": 1989,
+        "Požičané knihy": []
+    },
+    {
+        "ID": 6,
+        "Meno": "Dusan",
+        "Priezvisko": "Pirosik",
+        "Rok_narodenia": 1990,
+        "Požičané knihy": []
+    },
+    {
+        "ID": 7,
+        "Meno": "Júlia",
+        "Priezvisko": "Vrabčeková",
+        "Rok_narodenia": 1997,
+        "Požičané knihy": []
+    },
+    {
+        "ID": 8,
+        "Meno": "Gabriela",
+        "Priezvisko": "Biela",
+        "Rok_narodenia": 1998,
+        "Požičané knihy": []
     }
 ]

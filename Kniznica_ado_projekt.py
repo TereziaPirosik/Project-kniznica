@@ -1,35 +1,36 @@
 
 import json
+from datetime import datetime, timedelta
 
 class Kniha:
     id_counter = 1
     
-    def __init__(self, nazov_autora, nazov_knihy, ISBN, rok_vydania, pozicanie, kategoria, zaciatok_vypozicky):
+    def __init__(self, nazov_autora, nazov_knihy, ISBN, rok_vydania, pozicanie, kategoria, zaciatok_vypozicky, koniec_vypozicky):
         self.id = Kniha.id_counter
         Kniha.id_counter +=1
         
         self.nazov_autora = nazov_autora
         self.nazov_knihy = nazov_knihy
-        self.ISBN = ISBN
+        self.ISBN = int(ISBN)
         self.rok_vydania = int(rok_vydania)
         self.pozicanie = pozicanie
         self.kategoria = kategoria
         self.zaciatok_vypozicky = zaciatok_vypozicky
-        self.koniec_vypozicky = int(self.zaciatok_vypozicky + 10) if self.zaciatok_vypozicky is not None else None
+        self.koniec_vypozicky = koniec_vypozicky 
 
     def __str__(self):
-        return f"{self.nazov_autora}: {self.nazov_knihy}, {self.rok_vydania}, {self.pozicanie}, {self.ISBN},{self.kategoria}"
+        return f"{self.id}: {self.nazov_autora}: {self.nazov_knihy}, {self.rok_vydania}, {self.pozicanie}, {self.ISBN}, {self.kategoria}, {self.zaciatok_vypozicky} - {self.koniec_vypozicky}"
 
     def kniha_dict(self):
         return{
             "Meno autora": self.nazov_autora,
-            "Nazov knihy": self.nazov_knihy,
-            "cislo ISBN": self.ISBN,
+            "Názov knihy": self.nazov_knihy,
+            "Číslo ISBN": self.ISBN,
             "Rok vydania": self.rok_vydania,
-            "Pozicana": self.pozicanie,
-            "Kategoria": self.kategoria,
-            "Datum vypozicania": self.zaciatok_vypozicky,
-            "Koniec vypozicky": self.koniec_vypozicky
+            "Požičaná": self.pozicanie,
+            "Kategória": self.kategoria,
+            "Dátum vypožičania": self.zaciatok_vypozicky, 
+            "Koniec výpožičky": self.koniec_vypozicky 
           }
 
 
@@ -55,7 +56,7 @@ class Clen:
             "Meno": self.meno_clena,
             "Priezvisko": self.priezvisko_clena,
             "Rok_narodenia": self.rok_narodenia,
-            "Pozicane knihy": self.zoznam_pozicanych
+            "Požičané knihy": self.zoznam_pozicanych
         }
         
 
@@ -78,9 +79,9 @@ class Kniznica:
          with open("book.json", "r", encoding = "utf-8") as subor:
             books = json.load(subor)
             for book in books:
-                existujuca_kniha = Kniha(book["Meno autora"], book["Nazov knihy"], book["cislo ISBN"], book["Rok vydania"], book["Pozicana"], book["Kategoria"], book["Datum vypozicania"]  )
+                existujuca_kniha = Kniha(book["Meno autora"], book["Názov knihy"], book["Číslo ISBN"], book["Rok vydania"], book["Požičaná"], book["Kategória"], book["Dátum vypožičania"], book["Koniec výpožičky"])
                 self.knizny_zoznam.append(existujuca_kniha)
-            print("Data zo suboru book.json su nacitane.")
+            print("Dáta zo súboru book.json sú načítané.")
   
     
     def vypis_knizny_zoznam(self):
@@ -88,36 +89,49 @@ class Kniznica:
             print(f"\n{kniha}")
 
     def pridaj_novu_knihu(self):
-        print("\nZadaj informacie o knihe: nazov autora, nazov knihz, ISBN cislo a rok vydania.\n")
+        print("\nZadaj informácie o knihe: názov autora, názov knihy, ISBN číslo a rok vydania.\n")
         print("Zadaj meno autora: ")
         nazov_autora = input()
-        print("Zadaj nazov knihy: ")
+        print("Zadaj názov knihy: ")
         nazov_knihy = input()
-        print("Zadaj cislo ISBN: ")
-        ISBN = input()
-        print("Napis rok vydania knihy: ")
+        print("Zadaj číslo ISBN: (len číslo bez pomlčiek) ")
+        ISBN = int(input())
+
+        for kniha in self.knizny_zoznam:
+            if kniha.nazov_knihy.lower()== nazov_knihy.lower():
+                print(f"Kniha {nazov_knihy} už existuje v zozname")
+                return
+            if kniha.ISBN == ISBN:
+                print(f"Kniha s ISBN {ISBN} už existuje v zozname")
+                return
+        
+        print("Napíš rok vydania knihy: ")
         rok_vydania = input()
-        print("Poskytnite informaciu, ci je kniha pozicana. Ak ano, napiste Y, ak nie, tak napiste N")
+        print("Poskytnite informáciu, či je kniha požičana. Ak áno, napíšte Y, ak nie, tak napíšte N")
         pozicanie = input()
-        print("Napiste do akej kategoria kniha patri: ")
+        print("Napíšte do akej kategórie kniha patrí: ")
         kategoria = input()
+        #print("Zadajte datum pozicania, ak nie je pozicana, tak napiste None")
+        zaciatok_vypozicky = None #input()
+        koniec_vypozicky = None
         
-        
-        nova_kniha = Kniha(nazov_autora, nazov_knihy, ISBN, rok_vydania, pozicanie, kategoria)
+        nova_kniha = Kniha(nazov_autora, nazov_knihy, ISBN, rok_vydania, pozicanie, kategoria, zaciatok_vypozicky, koniec_vypozicky)
         self.knizny_zoznam.append(nova_kniha)
-        print(f"{str(nova_kniha)} bola pridane do knizneho zoznamu.")
+        print(f"{str(nova_kniha)} \nbola pridaná do knižného zoznamu.")
         #for kniznica in self.knizny_zoznam:
             #print(f" - {kniznica}")
 
-        kniha_to_dict = []
-        for kniha in self.knizny_zoznam:
-            data_in_dict = kniha.kniha_dict()
-            kniha_to_dict.append(data_in_dict)
+        self.akutalizacia_knizneho_zoznamu()
+        
+        #kniha_to_dict = []
+        #for kniha in self.knizny_zoznam:
+         #   data_in_dict = kniha.kniha_dict()
+          #  kniha_to_dict.append(data_in_dict)
             
         
     
-        with open ("book.json", "w", encoding = "utf-8") as subor:
-            json.dump(kniha_to_dict, subor, indent = 4, ensure_ascii = False)
+        #with open ("book.json", "w", encoding = "utf-8") as subor:
+         #   json.dump(kniha_to_dict, subor, indent = 4, ensure_ascii = False)
 
     
 
@@ -125,11 +139,11 @@ class Kniznica:
 
 
     def najdi_knihu_nazov_knihy(self):
-        hladany = input("\nZadaj nazov knihy: ")
+        hladany = input("\nZadaj názov knihy: ")
         iter = 0
         for kniha in self.knizny_zoznam:
             if kniha.nazov_knihy.lower() == hladany.lower():
-                print(f"Kniha bola najdena: {kniha}")
+                print(f"Kniha bola nájdená: {kniha}")
                 iter += 1
                 
         if iter == 0:
@@ -139,7 +153,7 @@ class Kniznica:
 
 
     def pozicaj_knihu(self):
-        vyber_zo_zoznamu = input("Aku knizku chcete pozicat? Napiste nazov knihy: ")
+        vyber_zo_zoznamu = input("Akú knižku chcete požičať? Napíšte názov knihy: ")
 
 
         for vyber in self.knizny_zoznam:
@@ -147,142 +161,131 @@ class Kniznica:
                 if vyber.pozicanie == "N":
                     print(f"{vyber.id}: {vyber.nazov_knihy} od {vyber.nazov_autora}")
 
-                    pozicanie = input("Chcete pozicat tuto knihu? (napiste Y alebo N): ")
+                    pozicanie = input("Chcete požičať túto knihu? (napíšte Y alebo N): ")
 
                     if pozicanie == "Y":
                         existuje = self.najdi_clena()
                     
                         if existuje == True:
-                            id_cloveka = int(input("Zadajte ID clena, ktory si knihu poziciava: "))
+                            id_cloveka = int(input("Zadajte ID člena, ktorý si knihu požičiava: "))
                             for clovek in self.zoznam_clenov:
-                                print(f"vypis {id_cloveka} a {clovek.id}")
+                               # print(f"vypis {id_cloveka} a {clovek.id}")
                                 if id_cloveka == clovek.id:
                                     clovek.zoznam_pozicanych.append(vyber.id)
-                                    print("Kniha bola priradena.")
+                                    print("Kniha bola priradená.")
 
-                                    clen_to_dict = []
-                                    for person in self.zoznam_clenov:
-                                        data_in_dict = person.clen_dict()
-                                        clen_to_dict.append(data_in_dict)
-        
-    
-                                    with open ("data.json", "w", encoding = "utf-8") as subor:
-                                        json.dump(clen_to_dict, subor, indent = 4, ensure_ascii = False)
+                                    zaciatok_vyp = datetime.now()
+                                    koniec_vyp = zaciatok_vyp + timedelta(days = 10)
+                                    
+                                    vyber.zaciatok_vypozicky = zaciatok_vyp.strftime("%d.%m.%Y")
+                                    vyber.koniec_vypozicky = koniec_vyp.strftime("%d.%m.%Y")
+
+                                    self.aktualizacia_zoznamu_clenov()
+
+                                    
 
                         if vyber.pozicanie == "N":
                             vyber.pozicanie = "Y"
                             #self.knizny_zoznam.append(vyber)
-                            print(f"{vyber.nazov_knihy} je uspesne pozicana.")
+                            print(f"{vyber.nazov_knihy} je úspešne požičaná.")
 
-                            kniha_to_dict = []
-                            for kniha in self.knizny_zoznam:
-                                data_in_dict = kniha.kniha_dict()
-                                kniha_to_dict.append(data_in_dict)
-            
-        
-    
-                            with open ("book.json", "w", encoding = "utf-8") as subor:
-                                json.dump(kniha_to_dict, subor, indent = 4, ensure_ascii = False)
+                        self.akutalizacia_knizneho_zoznamu()
+                
+                            
                                 
-                #else:
-                    #print("Kniha je uz pozicana")
+                else:
+                    print("Kniha je uz pozicana")
+
+
+
 
 
     def vratenie_knihy(self):       
-        vratka = input("Napiste nazov knihy, ktoru chcete vratit: ")
+        vratka = input("Napíšte názov knihy, ktorú chcete vrátiť: ")
         
         for vyber in self.knizny_zoznam:
             if vyber.nazov_knihy.lower() == vratka.lower():
                 if vyber.pozicanie == "Y":
                     print(f"{vyber.id}: {vyber.nazov_knihy} od {vyber.nazov_autora}")
 
-                    pozicanie = input("Chcete vratit tuto knihu? (napiste Y alebo N): ")
+                    pozicanie = input("Chcete vrátiť túto knihu? (napíšte Y alebo N): ")
 
                     if pozicanie == "Y":
                         existuje = self.najdi_clena()
                     
                         if existuje == True:
-                            id_cloveka = int(input("Zadajte ID clena, ktory knihu vracia: "))
+                            id_cloveka = int(input("Zadajte ID člena, ktorý knihu vracia: "))
                             for clovek in self.zoznam_clenov:
                                 print(f"vypis {id_cloveka} a {clovek.id}")
                                 if id_cloveka == clovek.id:
-                                    print(f"{vyber.id}")
+                                    #print(f"{vyber.id}")
                                     print(f"{clovek.zoznam_pozicanych}")
                                     clovek.zoznam_pozicanych.remove(int(vyber.id))
                                     
-                                    print("Kniha bola odstranena zo zoznamu.")
+                                    print("Kniha bola odstránená zo zoznamu.")
 
-                                    clen_to_dict = []
-                                    for person in self.zoznam_clenov:
-                                        data_in_dict = person.clen_dict()
-                                        clen_to_dict.append(data_in_dict)
-        
-    
-                                    with open ("data.json", "w", encoding = "utf-8") as subor:
-                                        json.dump(clen_to_dict, subor, indent = 4, ensure_ascii = False)
+                                    self.aktualizacia_zoznamu_clenov()
+                                    
 
                                     if vyber.pozicanie == "Y":
                                         vyber.pozicanie = "N"
+                                        vyber.zaciatok_vypozicky = None
+                                        vyber.koniec_vypozicky = None
                                         #self.knizny_zoznam.append(vyber)
-                                        print(f"{vyber.nazov_knihy} je uspesne vratena.")
+                                        print(f"{vyber.nazov_knihy} je úspešne vráten´á.")
 
-                                    kniha_to_dict = []
-                                    for kniha in self.knizny_zoznam:
-                                        data_in_dict = kniha.kniha_dict()
-                                        kniha_to_dict.append(data_in_dict)
-            
-    
-                                    with open ("book.json", "w", encoding = "utf-8") as subor:
-                                        json.dump(kniha_to_dict, subor, indent = 4, ensure_ascii = False)
+                                        self.akutalizacia_knizneho_zoznamu()
+
+                                    
 
                                     break
 
+
                                 
     def vymaz_knihu_nazov_knihy(self):
-        vymaz_knihu = input("Napis nazov knihy, ktoru chcete vymazat: ")
+        vymaz_knihu = input("Napíš názov knihy, ktorú chcete vymazať: ")
 
         count = 0
-        for nazov_knihy in self.knizny_zoznam:
-            if  nazov_knihy.nazov_knihy.lower()== vymaz_knihu.lower():
+        for meno_knihy in self.knizny_zoznam:
+            if  meno_knihy.nazov_knihy.lower()== vymaz_knihu.lower():
                 count += 1
-                self.knizny_zoznam.remove(nazov_knihy)
-                print(f"Kniha {nazov_knihy} bola vymazana")
+
+                if meno_knihy.pozicanie == "Y":
+                    print("Kniha je požičaná. Nemôžete ju vymazať!")
+                    return False
+                    
+                self.knizny_zoznam.remove(meno_knihy)
+                print(f"Kniha {vymaz_knihu} bola vymazaná")
 
         if count == 0:
-            print("Tato kniha neexistuje v zozname.")
+            print("Táto kniha neexistuje v zozname.")
 
-            kniha_to_dict = []
-            for kniha in self.knizny_zoznam:
-                data_in_dict = kniha.kniha_dict()
-                kniha_to_dict.append(data_in_dict)
+        self.akutalizacia_knizneho_zoznamu()
+
             
-    
-            with open ("book.json", "w", encoding = "utf-8") as subor:
-                json.dump(kniha_to_dict, subor, indent = 4, ensure_ascii = False)
 
 
 
 
     def vymaz_knihu_ISBN(self):
-        isbn_vymaz = input("Napis cislo ISBN, ktore chces vymazat: \nNapis ho v tomto tvare: ISBN798465164: ")
+        isbn_vymaz = int(input("Napíš číslo ISBN, ktoré chceš vymazať: \nNapíšte len číslo bez pomlčiek: "))
         count = 0
         for isbn in self.knizny_zoznam:
             if isbn.ISBN == isbn_vymaz:
                 count += 1
+
+                if isbn.pozicanie == "Y":
+                    print("Kniha je požičaná. Nemôžete ju vymazať!")
+                    return False
+                
                 self.knizny_zoznam.remove(isbn)
-                print(f"Kniha s ISBN {isbn_vymaz} bola vymazana")
+                print(f"Kniha s ISBN {isbn_vymaz} bola vymazaná")
 
         if count == 0:
-            print("Taketo cislo ISBN neexistuje")
+            print("Takéto číslo ISBN neexistuje")
 
-            kniha_to_dict = []
-            for kniha in self.knizny_zoznam:
-                data_in_dict = kniha.kniha_dict()
-                kniha_to_dict.append(data_in_dict)
-            
-    
-            with open ("book.json", "w", encoding = "utf-8") as subor:
-                json.dump(kniha_to_dict, subor, indent = 4, ensure_ascii = False)
+        self.akutalizacia_knizneho_zoznamu()
+
 
                 
 
@@ -291,35 +294,37 @@ class Kniznica:
         with open("data.json", "r", encoding = "utf-8") as subor:
             data = json.load(subor)
             for clen in data:
-                existujuci_clen = Clen(clen["Meno"], clen["Priezvisko"], clen["Rok_narodenia"], clen["Pozicane knihy"])
+                existujuci_clen = Clen(clen["Meno"], clen["Priezvisko"], clen["Rok_narodenia"], clen["Požičané knihy"])
                 self.zoznam_clenov.append(existujuci_clen)
-        print("Data zo suboru data.json su nacitane.")
+        print("Dáta zo súboru data.json sú načítané.")
 
-        for clenovia in self.zoznam_clenov:
-            print(f"{clenovia.zoznam_pozicanych}")
+        #for clenovia in self.zoznam_clenov:
+            #print(f"{clenovia.zoznam_pozicanych}")
  
 
     def pridaj_noveho_clena(self):
-        print("Poskytnite informacie o novom clenovi pre zapis: ")
-        meno_clena = input("Napis meno noveho clena: ")
-        priezvisko_clena = input("Napis priezvisko noveho clena: ")
-        rok_narodenia = int(input("Napis rok narodenia: "))
+        print("Poskytnite informácie o novom členovi pre zápis: ")
+        meno_clena = input("Napíš meno nového člena: ")
+        priezvisko_clena = input("Napíš priezvisko nového člena: ")
+        rok_narodenia = int(input("Napíš rok narodenia: "))
+        zoznam_pozicanych = []
         
-        novy_clen = Clen(meno_clena, priezvisko_clena, rok_narodenia)
+        novy_clen = Clen(meno_clena, priezvisko_clena, rok_narodenia, zoznam_pozicanych)
+        
+        for clen in self.zoznam_clenov:
+            if (clen.meno_clena.lower() == meno_clena.lower() and
+                clen.priezvisko_clena.lower() == priezvisko_clena.lower() and
+                clen.rok_narodenia == rok_narodenia):
+                print(f"Tento člen {meno_clena} {priezvisko_clena} {rok_narodenia} už existuje v zozname.")
+                return
+        
         self.zoznam_clenov.append(novy_clen)
 
-        clen_to_dict = []
-        for person in self.zoznam_clenov:
-            data_in_dict = person.clen_dict()
-            clen_to_dict.append(data_in_dict)
+        self.aktualizacia_zoznamu_clenov()
+
             
-        #[person.clen_dict() for person in self.zoznam_clenov] - kratsi zapis for cyklu
-    
-        with open ("data.json", "w", encoding = "utf-8") as subor:
-            json.dump(clen_to_dict, subor, indent = 4, ensure_ascii = False)
-            
-        print(f"\nNovy clen {meno_clena} {priezvisko_clena} je pridany.\n")
-        print("Udaje boli pridane do suboru.\n")
+        print(f"\nNový člen {meno_clena} {priezvisko_clena} je pridaný.\n")
+        print("Údaje boli pridané do súboru data.json.\n")
 
         return True
 
@@ -331,34 +336,38 @@ class Kniznica:
 
 
     def najdi_clena(self):
-        hladany_clen = input("\nZadaj meno clena: ")
+        hladany_clen = input("\nZadaj meno člena: ")
+        
         count = 0
         for osoba in self.zoznam_clenov:
             if osoba.meno_clena.lower() == hladany_clen.lower():
-                print(f"Clen bol najdeny: {osoba.id}: {osoba.meno_clena} {osoba.priezvisko_clena}")
-                count += 1
-                return True
+                print(f"Člen bol nájdený: {osoba.id}: {osoba.meno_clena} {osoba.priezvisko_clena}")
+                count += 1   
+            
         if count == 0:
-            print("Clen nie je v zozname!")
-            return False 
+            print("Člen nie je v zozname!")
+            return False
+        
+        else:
+           return True 
 
 
     def najdi_clena_podla_priezviska(self):
-        hladany_clen = input("\nNapis priezvisko hladaneho: ")
+        hladany_clen = input("\nNapíš priezvisko hladaného: ")
         count = 0
         for osoba in self.zoznam_clenov:
             if osoba.priezvisko_clena.lower() == hladany_clen.lower():
-                print(f"Clen bol najdeny: {osoba.meno_clena} {osoba.priezvisko_clena}")
+                print(f"Člen bol nájdený: {osoba.id} {osoba.meno_clena} {osoba.priezvisko_clena}")
                 count += 1
         
         if count == 0:
-            print("Clen s tymto priezviskom sa nenachadza v zozname.")
+            print("člen s týmto priezviskom sa nenachádza v zozname.")
         return
 
 
     def vymaz_clena(self):
-        odstranit = int(input("\nZadajte ID/cislo clena, ktoreho chcete vymazat: "))
-        potvrdenie = input(f"\nNaozaj chcete vymazat clena s ID {odstranit}? Ak ano stlacte Y, ak nie stalcte N: ")
+        odstranit = int(input("\nZadajte ID/číslo člena, ktorého chcete vymazať: "))
+        potvrdenie = input(f"\nNaozaj chcete vymazať člena s ID {odstranit}? Ak áno stlačte Y, ak nie stlačte N: ")
         
         if potvrdenie == "Y":
             count = 0
@@ -366,65 +375,183 @@ class Kniznica:
                 if number.id == odstranit:
                     count += 1
                     break
+                
             if count > 0:
                 for clen in self.zoznam_clenov:
                     if clen.id == odstranit:
+                        if clen.zoznam_pozicanych:
+                            print(f"Člen má stále požičané knihy (ID kníh: {clen.zoznam_pozicanych})")
+                            print("Najprv je potrebné vrátiť všetky požičané knihy.")
+                            return False
+                        
                         self.zoznam_clenov.remove(clen)
-                        print("Clen bol vymazany.")
+                        print("Člen bol vymazaný.")
+
+                        self.aktualizacia_zoznamu_clenov()
 
 
-                        clen_to_dict = []
-                        for person in self.zoznam_clenov:
-                            data_in_dict = person.clen_dict()
-                            clen_to_dict.append(data_in_dict)
-        
-    
-                        with open ("data.json", "w", encoding = "utf-8") as subor:
-                            json.dump(clen_to_dict, subor, indent = 4, ensure_ascii = False)
             else:
-                print("Clen s tymto ID neexistuje.")
+                print("Člen s týmto ID neexistuje.")
                     
         else:
-            print("Clen bol ponechany v zozname.")
+            print("Člen bol ponechaný v zozname.")
+
+
+    def akutalizacia_knizneho_zoznamu(self):
+        kniha_to_dict = []
+        for kniha in self.knizny_zoznam:
+            data_in_dict = kniha.kniha_dict()
+            kniha_to_dict.append(data_in_dict)
+            
+    
+        with open ("book.json", "w", encoding = "utf-8") as subor:
+            json.dump(kniha_to_dict, subor, indent = 4, ensure_ascii = False)
+
+
+    def aktualizacia_zoznamu_clenov(self):
+        clen_to_dict = []
+        for person in self.zoznam_clenov:
+            data_in_dict = person.clen_dict()
+            clen_to_dict.append(data_in_dict)
+            
+        #[person.clen_dict() for person in self.zoznam_clenov] - kratsi zapis for cyklu
+    
+        with open ("data.json", "w", encoding = "utf-8") as subor:
+            json.dump(clen_to_dict, subor, indent = 4, ensure_ascii = False)
 
 
 
 
+def menu():
+        print("|======================================================================|")
+        print("|                      Vitajte v kniznici                              |")
+        print("|======================================================================|")
+        print("|                                                                      |")
+        print("|1. Pridať novú knihu              8. Pridať nového člena              |")
+        print("|                                                                      |")
+        print("|2. Zobraziť zoznam kníh           9. Zobraziť zoznam členov           |")
+        print("|                                                                      |")
+        print("|3. Požičať knihu                  10. Nájsť člena podľa mena          |")
+        print("|                                                                      |")
+        print("|4. Vrátiť knihu                   11. Nájsť člena podľa priezviska    |")
+        print("|                                                                      |")
+        print("|5. Vymazať Knihu podľa ISBN       12. Vymazať člena                   |")
+        print("|                                                                      |")
+        print("|6. Vymazať knihu podľa názvu                                          |")
+        print("|                                                                      |")
+        print("|7. Vyhľadať knihu podľa názvu                                         |")
+        print("|                                                                      |")
+        print("|======================================================================|")
+        print("|                          e. koniec                                   |")
+        print("|======================================================================|")
+
+def spusti_program():
+    kniznica = Kniznica()
+
+    while True:
+            
+        menu()
+        volba = input("\nVyberte možnosť (1-12): ")
+
+        match volba:
+                
+                case "1":
+                    kniznica.pridaj_novu_knihu()
+
+                case "2":
+                    kniznica.vypis_knizny_zoznam()
+
+                case "3":
+                    kniznica.vypis_knizny_zoznam()
+                    kniznica.vypis_zoznam()
+                    kniznica.pozicaj_knihu()
+                    
+                case "4":
+                    kniznica.vypis_knizny_zoznam()
+                    kniznica.vypis_zoznam()
+                    kniznica.vratenie_knihy()
+
+                case "5":
+                    kniznica.vypis_knizny_zoznam()
+                    kniznica.vymaz_knihu_ISBN()
+
+                case "6":
+                    kniznica.vypis_knizny_zoznam()
+                    kniznica.vymaz_knihu_nazov_knihy()
+
+                case "7":
+                    kniznica.najdi_knihu_nazov_knihy()
+
+                case "8":
+                    kniznica.pridaj_noveho_clena()
+
+                case "9":
+                    kniznica.vypis_zoznam()
+
+                case "10":
+                    kniznica.najdi_clena()
+
+                case "11":
+                    kniznica.najdi_clena_podla_priezviska()
+
+                case "12":
+                    kniznica.vypis_zoznam()
+                    kniznica.vymaz_clena()
+
+                case "e":
+                    print("Ukončili ste program.")
+                    break
+
+                case _:
+                    print("Zadali ste neplatnú voľbu. Skúste ešte raz.")
 
 
 
 if __name__ == '__main__': 
     print("Script is running")
 
+    spusti_program()
+    
+
+
+
+
+
+
+
 
      
-kniznica = Kniznica()
+#kniznica = Kniznica()
 #kniznica.vypis_knizny_zoznam()
 #kniznica.pridaj_novu_knihu()
 #kniznica.pridaj_novu_knihu()
 #kniznica.najdi_knihu_nazov_knihy()
+
 #kniznica.pridaj_novu_knihu()
 
-kniznica.vypis_zoznam()
-
-print("-----------------------------")
-print("ZOZNAM KNIH")
-print("-----------------------------")
-kniznica.vypis_knizny_zoznam()
+#kniznica.vypis_zoznam()
 
 #print("-----------------------------")
-#print("POZICANIE KNIHY")
+#print("ZOZNAM KNIH")
 #print("-----------------------------")
-#kniznica.pozicaj_knihu()
+#kniznica.vypis_knizny_zoznam()
 
 #print("-----------------------------")
 #print("POZICANIE KNIHY")
 #print("-----------------------------")
 #kniznica.pozicaj_knihu()
-print("-----------------------------")
-print("VRATENIE KNIHY")
-print("-----------------------------")
-kniznica.vratenie_knihy()
+
+
+#kniznica.vypis_knizny_zoznam()
+
+#print("-----------------------------")
+#print("POZICANIE KNIHY")
+#print("-----------------------------")
+#kniznica.pozicaj_knihu()
+#print("-----------------------------")
+#print("VRATENIE KNIHY")
+#print("-----------------------------")
+#kniznica.vratenie_knihy()
 
 #kniznica.vypis_knizny_zoznam()
 

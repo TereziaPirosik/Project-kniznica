@@ -1,82 +1,192 @@
 [
     {
         "Meno autora": "Jules Verne",
-        "Nazov knihy": "Cesta do stredu Zeme",
-        "cislo ISBN": "ISBN231354684321684351",
+        "Názov knihy": "Cesta do stredu Zeme",
+        "Číslo ISBN": 231354684321684351,
         "Rok vydania": 1995,
-        "Pozicana": "N",
-        "Kategoria": "Sci-fi",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
+        "Požičaná": "N",
+        "Kategória": "Sci-fi",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
     },
     {
         "Meno autora": "Tessa Afsharova",
-        "Nazov knihy": "Perla z piesku",
-        "cislo ISBN": "ISBN789132165894651",
+        "Názov knihy": "Perla z piesku",
+        "Číslo ISBN": 789132165894651,
         "Rok vydania": 2021,
-        "Pozicana": "N",
-        "Kategoria": "Historicky roman",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
+        "Požičaná": "N",
+        "Kategória": "historicky roman",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
     },
     {
         "Meno autora": "Adrian Johns",
-        "Nazov knihy": "Piratstvi",
-        "cislo ISBN": "ISBN13216879164984156165",
+        "Názov knihy": "Piratstvi",
+        "Číslo ISBN": 13216879164984156165,
         "Rok vydania": 2013,
-        "Pozicana": "N",
-        "Kategoria": "Odborne a naucne",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
+        "Požičaná": "Y",
+        "Kategória": "odborne a naucne",
+        "Dátum vypožičania": "08.10.2025",
+        "Koniec výpožičky": "18.10.2025"
     },
     {
         "Meno autora": "Ernest Hemingway",
-        "Nazov knihy": "Komu zvonia do hrobu",
-        "cislo ISBN": "ISBN21698765165491",
+        "Názov knihy": "Komu zvonia do hrobu",
+        "Číslo ISBN": 21698765165491,
         "Rok vydania": 1963,
-        "Pozicana": "Y",
-        "Kategoria": "Svetova proza",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
+        "Požičaná": "Y",
+        "Kategória": "Svetova proza",
+        "Dátum vypožičania": "08.10.2025",
+        "Koniec výpožičky": "18.10.2025"
     },
     {
-        "Meno autora": "v.p.borovicka",
-        "Nazov knihy": "Vyzvedaci z Tel Avivu",
-        "cislo ISBN": "ISBN1235468189465",
+        "Meno autora": "V.P.Borovicka",
+        "Názov knihy": "Vyzvedaci z Tel Avivu",
+        "Číslo ISBN": 1235468189465,
         "Rok vydania": 1980,
-        "Pozicana": "Y",
-        "Kategoria": "Deketivky",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
+        "Požičaná": "N",
+        "Kategória": "Detektivky",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
     },
     {
         "Meno autora": "Peter Bucany",
-        "Nazov knihy": "Mam strach",
-        "cislo ISBN": "ISBN978-80-8074-586-8",
+        "Názov knihy": "Mam strach",
+        "Číslo ISBN": 9788080745868,
         "Rok vydania": 2025,
-        "Pozicana": "Y",
-        "Kategoria": "odborne a naucne",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
+        "Požičaná": "N",
+        "Kategória": "odborne a naucne",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
     },
     {
         "Meno autora": "Petr Ludwig",
-        "Nazov knihy": "Konec prokrastinace",
-        "cislo ISBN": "ISBN561324687354654",
+        "Názov knihy": "Konec prokrastinace",
+        "Číslo ISBN": 561324687354654,
         "Rok vydania": 2019,
-        "Pozicana": "N",
-        "Kategoria": "odborne a naucne",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
+        "Požičaná": "N",
+        "Kategória": "odborne a naucne",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
     },
     {
         "Meno autora": "Joel Marsh",
-        "Nazov knihy": "UX pro zacatecniky",
-        "cislo ISBN": "ISBN978-80-7413-397-8",
+        "Názov knihy": "UX pro zacatecniky",
+        "Číslo ISBN": 9788074133978,
         "Rok vydania": 2019,
-        "Pozicana": "Y",
-        "Kategoria": "odborne a naucne",
-        "Datum vypozicania": null,
-        "Koniec vypozicky": null
+        "Požičaná": "N",
+        "Kategória": "odborne a naucne",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
+    },
+    {
+        "Meno autora": "Marek Vagovič",
+        "Názov knihy": "Vlastnou hlavou",
+        "Číslo ISBN": 9788081594410,
+        "Rok vydania": 2016,
+        "Požičaná": "N",
+        "Kategória": "zivotopis a reportaz",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
+    },
+    {
+        "Meno autora": "Julie Soto",
+        "Názov knihy": "Rose in Chains",
+        "Číslo ISBN": 9780008711689,
+        "Rok vydania": 2025,
+        "Požičaná": "N",
+        "Kategória": "fantasy",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
+    },
+    {
+        "Meno autora": "Jennifer Tuckerová",
+        "Názov knihy": "Dych ako modlitba",
+        "Číslo ISBN": 9788083000117,
+        "Rok vydania": 2022,
+        "Požičaná": "N",
+        "Kategória": "Duchovna literarura",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
+    },
+    {
+        "Meno autora": "Nigel Toon",
+        "Názov knihy": "How AI thinks",
+        "Číslo ISBN": 9781911709473,
+        "Rok vydania": 2024,
+        "Požičaná": "Y",
+        "Kategória": "odborne a naucne",
+        "Dátum vypožičania": "10.10.2025",
+        "Koniec výpožičky": "20.10.2025"
+    },
+    {
+        "Meno autora": "Adam Grant",
+        "Názov knihy": "Skryty potencial",
+        "Číslo ISBN": 9788055199054,
+        "Rok vydania": 2025,
+        "Požičaná": "N",
+        "Kategória": "odborne a naucne",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
+    },
+    {
+        "Meno autora": "Veronika Consculluela",
+        "Názov knihy": "Scvrknuty svet",
+        "Číslo ISBN": 9788082035622,
+        "Rok vydania": 2025,
+        "Požičaná": "N",
+        "Kategória": "zivotopisy a reportaze",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
+    },
+    {
+        "Meno autora": "Neil De Grasse Tyson",
+        "Názov knihy": "Astrofyzika pre zaneprazdnenych",
+        "Číslo ISBN": 9788022209014,
+        "Rok vydania": 2017,
+        "Požičaná": "N",
+        "Kategória": "odborne a naucne",
+        "Dátum vypožičania": "None",
+        "Koniec výpožičky": null
+    },
+    {
+        "Meno autora": "Jozef Karika",
+        "Názov knihy": "Pád",
+        "Číslo ISBN": 9788057501671,
+        "Rok vydania": 2025,
+        "Požičaná": "N",
+        "Kategória": "Detektivka",
+        "Dátum vypožičania": "None",
+        "Koniec výpožičky": null
+    },
+    {
+        "Meno autora": "Jenny Colgan",
+        "Názov knihy": "Vianoce na ostrove",
+        "Číslo ISBN": 9788083051973,
+        "Rok vydania": 2025,
+        "Požičaná": "Y",
+        "Kategória": "Beletria",
+        "Dátum vypožičania": "09.10.2025",
+        "Koniec výpožičky": "19.10.2025"
+    },
+    {
+        "Meno autora": "Andrzej Sapkowski",
+        "Názov knihy": "Zaklínač: Posledné želanie",
+        "Číslo ISBN": 9788056617373,
+        "Rok vydania": 2020,
+        "Požičaná": "N",
+        "Kategória": "fantasy",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
+    },
+    {
+        "Meno autora": "Antoine de Saint-Exupéry",
+        "Názov knihy": "Malý princ",
+        "Číslo ISBN": 9788055641423,
+        "Rok vydania": 2020,
+        "Požičaná": "N",
+        "Kategória": "rozprávky",
+        "Dátum vypožičania": null,
+        "Koniec výpožičky": null
     }
 ]
