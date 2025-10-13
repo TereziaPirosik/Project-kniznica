@@ -287,6 +287,14 @@ class Kniznica:
         self.akutalizacia_knizneho_zoznamu()
 
 
+
+    def sledovanie_pozicanych(self):
+        print("Zoznam požičaných kníh: \n")
+
+        for kniha in self.knizny_zoznam:
+            if not (kniha.pozicanie == "N" and
+                kniha.koniec_vypozicky == None):
+                print(f"{kniha.nazov_autora}\n {kniha.nazov_knihy}\n Dátum vrátenia:{kniha.koniec_vypozicky}\n")
                 
 
 
@@ -397,6 +405,29 @@ class Kniznica:
             print("Člen bol ponechaný v zozname.")
 
 
+    def zobrazit_knihy_clen(self):
+        print("Pre zobrazenie kníh, ktoré má člen požičané zadaj ID člena: ")
+        try:
+            ID_clen = int(input())
+
+            for clen in self.zoznam_clenov:
+                if clen.id == ID_clen:
+                    if not clen.zoznam_pozicanych:
+                        print(f"{clen.meno_clena} {clen.priezvisko_clena} nemá požičané žiadne knihy.")
+                        return
+                
+                print(f"Knihy požičané členom {clen.meno_clena} {clen.priezvisko_clena}: ")
+                for id_knihy in clen.zoznam_pozicanych:
+                    for kniha in self.knizny_zoznam:
+                        if kniha.id == id_knihy:
+                            print(f"{kniha. nazov_autora} \n{kniha.nazov_knihy} \n{kniha.zaciatok_vypozicky} {kniha.koniec_vypozicky}\n")
+                return
+                    
+            print(f"Člen s ID {ID_clen} nebol nájdený.")
+            
+        except ValueError:
+            print("Neplatné ID! Zadajte číslo.")
+
     def akutalizacia_knizneho_zoznamu(self):
         kniha_to_dict = []
         for kniha in self.knizny_zoznam:
@@ -423,8 +454,9 @@ class Kniznica:
 
 
 def menu():
-        print("|======================================================================|")
-        print("|                      Vitajte v kniznici                              |")
+        
+        print("\n|======================================================================|")
+        print("|                      Vitajte v knižnici                              |")
         print("|======================================================================|")
         print("|                                                                      |")
         print("|1. Pridať novú knihu              8. Pridať nového člena              |")
@@ -437,13 +469,14 @@ def menu():
         print("|                                                                      |")
         print("|5. Vymazať Knihu podľa ISBN       12. Vymazať člena                   |")
         print("|                                                                      |")
-        print("|6. Vymazať knihu podľa názvu                                          |")
+        print("|6. Vymazať knihu podľa názvu      13. Sledovanie požičaných kníh      |")
         print("|                                                                      |")
-        print("|7. Vyhľadať knihu podľa názvu                                         |")
+        print("|7. Vyhľadať knihu podľa názvu     14. Zobraziť členové knihy          |")
         print("|                                                                      |")
         print("|======================================================================|")
         print("|                          e. koniec                                   |")
         print("|======================================================================|")
+
 
 def spusti_program():
     kniznica = Kniznica()
@@ -451,7 +484,7 @@ def spusti_program():
     while True:
             
         menu()
-        volba = input("\nVyberte možnosť (1-12): ")
+        volba = input("\nVyberte možnosť (1-14): ")
 
         match volba:
                 
@@ -498,12 +531,20 @@ def spusti_program():
                     kniznica.vypis_zoznam()
                     kniznica.vymaz_clena()
 
+                case "13":
+                    kniznica.sledovanie_pozicanych()
+
+                case "14":
+                    kniznica.vypis_zoznam()
+                    kniznica.zobrazit_knihy_clen()
+
                 case "e":
                     print("Ukončili ste program.")
                     break
 
                 case _:
                     print("Zadali ste neplatnú voľbu. Skúste ešte raz.")
+
 
 
 
@@ -516,56 +557,7 @@ if __name__ == '__main__':
 
 
 
-
-
-
-
      
-#kniznica = Kniznica()
-#kniznica.vypis_knizny_zoznam()
-#kniznica.pridaj_novu_knihu()
-#kniznica.pridaj_novu_knihu()
-#kniznica.najdi_knihu_nazov_knihy()
-
-#kniznica.pridaj_novu_knihu()
-
-#kniznica.vypis_zoznam()
-
-#print("-----------------------------")
-#print("ZOZNAM KNIH")
-#print("-----------------------------")
-#kniznica.vypis_knizny_zoznam()
-
-#print("-----------------------------")
-#print("POZICANIE KNIHY")
-#print("-----------------------------")
-#kniznica.pozicaj_knihu()
-
-
-#kniznica.vypis_knizny_zoznam()
-
-#print("-----------------------------")
-#print("POZICANIE KNIHY")
-#print("-----------------------------")
-#kniznica.pozicaj_knihu()
-#print("-----------------------------")
-#print("VRATENIE KNIHY")
-#print("-----------------------------")
-#kniznica.vratenie_knihy()
-
-#kniznica.vypis_knizny_zoznam()
-
-#kniznica.vymaz_knihu_ISBN()
-#kniznica.pridaj_noveho_clena()
-#kniznica.pridaj_noveho_clena()
-#kniznica.pridaj_noveho_clena()
-#kniznica.vypis_zoznam()
-#kniznica.najdi_clena()
-#kniznica.najdi_clena_podla_priezviska()
-#kniznica.vymaz_clena()
-#kniznica.vypis_zoznam()  
-#kniznica.pridaj_noveho_clena()      
-#kniznica.vypis_zoznam()
 
 
 
