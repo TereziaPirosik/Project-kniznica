@@ -111,31 +111,18 @@ class Kniznica:
         pozicanie = input()
         print("Napíšte do akej kategórie kniha patrí: ")
         kategoria = input()
-        #print("Zadajte datum pozicania, ak nie je pozicana, tak napiste None")
-        zaciatok_vypozicky = None #input()
+        zaciatok_vypozicky = None 
         koniec_vypozicky = None
         
         nova_kniha = Kniha(nazov_autora, nazov_knihy, ISBN, rok_vydania, pozicanie, kategoria, zaciatok_vypozicky, koniec_vypozicky)
         self.knizny_zoznam.append(nova_kniha)
         print(f"{str(nova_kniha)} \nbola pridaná do knižného zoznamu.")
-        #for kniznica in self.knizny_zoznam:
-            #print(f" - {kniznica}")
+        
 
         self.akutalizacia_knizneho_zoznamu()
         
-        #kniha_to_dict = []
-        #for kniha in self.knizny_zoznam:
-         #   data_in_dict = kniha.kniha_dict()
-          #  kniha_to_dict.append(data_in_dict)
-            
         
-    
-        #with open ("book.json", "w", encoding = "utf-8") as subor:
-         #   json.dump(kniha_to_dict, subor, indent = 4, ensure_ascii = False)
-
-    
-
-       
+                   
 
 
     def najdi_knihu_nazov_knihy(self):
@@ -169,7 +156,6 @@ class Kniznica:
                         if existuje == True:
                             id_cloveka = int(input("Zadajte ID člena, ktorý si knihu požičiava: "))
                             for clovek in self.zoznam_clenov:
-                               # print(f"vypis {id_cloveka} a {clovek.id}")
                                 if id_cloveka == clovek.id:
                                     clovek.zoznam_pozicanych.append(vyber.id)
                                     print("Kniha bola priradená.")
@@ -186,11 +172,9 @@ class Kniznica:
 
                         if vyber.pozicanie == "N":
                             vyber.pozicanie = "Y"
-                            #self.knizny_zoznam.append(vyber)
                             print(f"{vyber.nazov_knihy} je úspešne požičaná.")
 
                         self.akutalizacia_knizneho_zoznamu()
-                
                             
                                 
                 else:
@@ -218,7 +202,6 @@ class Kniznica:
                             for clovek in self.zoznam_clenov:
                                 print(f"vypis {id_cloveka} a {clovek.id}")
                                 if id_cloveka == clovek.id:
-                                    #print(f"{vyber.id}")
                                     print(f"{clovek.zoznam_pozicanych}")
                                     clovek.zoznam_pozicanych.remove(int(vyber.id))
                                     
@@ -231,7 +214,6 @@ class Kniznica:
                                         vyber.pozicanie = "N"
                                         vyber.zaciatok_vypozicky = None
                                         vyber.koniec_vypozicky = None
-                                        #self.knizny_zoznam.append(vyber)
                                         print(f"{vyber.nazov_knihy} je úspešne vráten´á.")
 
                                         self.akutalizacia_knizneho_zoznamu()
@@ -306,8 +288,7 @@ class Kniznica:
                 self.zoznam_clenov.append(existujuci_clen)
         print("Dáta zo súboru data.json sú načítané.")
 
-        #for clenovia in self.zoznam_clenov:
-            #print(f"{clenovia.zoznam_pozicanych}")
+        
  
 
     def pridaj_noveho_clena(self):
@@ -420,7 +401,7 @@ class Kniznica:
                 for id_knihy in clen.zoznam_pozicanych:
                     for kniha in self.knizny_zoznam:
                         if kniha.id == id_knihy:
-                            print(f"{kniha. nazov_autora} \n{kniha.nazov_knihy} \n{kniha.zaciatok_vypozicky} {kniha.koniec_vypozicky}\n")
+                            print(f"{kniha. nazov_autora} \n{kniha.nazov_knihy} \n{kniha.zaciatok_vypozicky} - {kniha.koniec_vypozicky}\n")
                 return
                     
             print(f"Člen s ID {ID_clen} nebol nájdený.")
