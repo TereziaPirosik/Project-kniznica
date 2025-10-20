@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 class Kniha:
     id_counter = 1
     
-    def __init__(self, nazov_autora, nazov_knihy, ISBN, rok_vydania, pozicanie, kategoria, zaciatok_vypozicky, koniec_vypozicky):
+    def __init__(self, nazov_autora, nazov_knihy, ISBN, rok_vydania, kategoria, pozicanie = False, zaciatok_vypozicky = None, koniec_vypozicky = None):
         self.id = Kniha.id_counter
         Kniha.id_counter +=1
         
@@ -13,25 +13,24 @@ class Kniha:
         self.nazov_knihy = nazov_knihy
         self.ISBN = int(ISBN)
         self.rok_vydania = int(rok_vydania)
-        self.pozicanie = pozicanie
+        #self.pozicanie = pozicanie
         self.kategoria = kategoria
-        self.zaciatok_vypozicky = zaciatok_vypozicky
-        self.koniec_vypozicky = koniec_vypozicky 
+         
 
     def __str__(self):
         return f"{self.id}: {self.nazov_autora}: {self.nazov_knihy}, {self.rok_vydania}, {self.pozicanie}, {self.ISBN}, {self.kategoria}, {self.zaciatok_vypozicky} - {self.koniec_vypozicky}"
 
-    def kniha_dict(self):
-        return{
-            "Meno autora": self.nazov_autora,
-            "Názov knihy": self.nazov_knihy,
-            "Číslo ISBN": self.ISBN,
-            "Rok vydania": self.rok_vydania,
-            "Požičaná": self.pozicanie,
-            "Kategória": self.kategoria,
-            "Dátum vypožičania": self.zaciatok_vypozicky, 
-            "Koniec výpožičky": self.koniec_vypozicky 
-          }
+    #def kniha_dict(self):
+        #return{
+         #   "Meno autora": self.nazov_autora,
+          #  "Názov knihy": self.nazov_knihy,
+           # "Číslo ISBN": self.ISBN,
+            #"Rok vydania": self.rok_vydania,
+            #"Požičaná": self.pozicanie,
+            #"Kategória": self.kategoria,
+            #"Dátum vypožičania": self.zaciatok_vypozicky, 
+            #"Koniec výpožičky": self.koniec_vypozicky 
+          #}
 
 
         
@@ -78,8 +77,9 @@ class Kniznica:
     def nacitaj_knizny_zoznam(self):
          with open("book.json", "r", encoding = "utf-8") as subor:
             books = json.load(subor)
+            
             for book in books:
-                existujuca_kniha = Kniha(book["Meno autora"], book["Názov knihy"], book["Číslo ISBN"], book["Rok vydania"], book["Požičaná"], book["Kategória"], book["Dátum vypožičania"], book["Koniec výpožičky"])
+                existujuca_kniha = Kniha(**book)
                 self.knizny_zoznam.append(existujuca_kniha)
             print("Dáta zo súboru book.json sú načítané.")
   
@@ -200,7 +200,6 @@ class Kniznica:
                         if existuje == True:
                             id_cloveka = int(input("Zadajte ID člena, ktorý knihu vracia: "))
                             for clovek in self.zoznam_clenov:
-                                print(f"vypis {id_cloveka} a {clovek.id}")
                                 if id_cloveka == clovek.id:
                                     print(f"{clovek.zoznam_pozicanych}")
                                     clovek.zoznam_pozicanych.remove(int(vyber.id))
@@ -214,7 +213,7 @@ class Kniznica:
                                         vyber.pozicanie = "N"
                                         vyber.zaciatok_vypozicky = None
                                         vyber.koniec_vypozicky = None
-                                        print(f"{vyber.nazov_knihy} je úspešne vráten´á.")
+                                        print(f"{vyber.nazov_knihy} je úspešne vrátená.")
 
                                         self.akutalizacia_knizneho_zoznamu()
 
@@ -390,23 +389,29 @@ class Kniznica:
         print("Pre zobrazenie kníh, ktoré má člen požičané zadaj ID člena: ")
         try:
             ID_clen = int(input())
-
+            clen_najdeny = False
+            
             for clen in self.zoznam_clenov:
                 if clen.id == ID_clen:
+                    clen_najdeny = True
+                    print(f"Knihy požičané členom {clen.meno_clena} {clen.priezvisko_clena}: ")
+
                     if not clen.zoznam_pozicanych:
                         print(f"{clen.meno_clena} {clen.priezvisko_clena} nemá požičané žiadne knihy.")
-                        return
+                        
                 
-                print(f"Knihy požičané členom {clen.meno_clena} {clen.priezvisko_clena}: ")
-                for id_knihy in clen.zoznam_pozicanych:
-                    for kniha in self.knizny_zoznam:
-                        if kniha.id == id_knihy:
-                            print(f"{kniha. nazov_autora} \n{kniha.nazov_knihy} \n{kniha.zaciatok_vypozicky} - {kniha.koniec_vypozicky}\n")
-                return
-                    
-            print(f"Člen s ID {ID_clen} nebol nájdený.")
+                    else:
+                        for id_knihy in clen.zoznam_pozicanych:
+                            for kniha in self.knizny_zoznam:
+                                if kniha.id == id_knihy:
+                                    print(f"{kniha. nazov_autora} \n{kniha.nazov_knihy} \n{kniha.zaciatok_vypozicky} - {kniha.koniec_vypozicky}\n")
+                    break
+                
+            if not clen_najdeny:        
+                print(f"Člen s ID {ID_clen} nebol nájdený.")
             
         except ValueError:
+
             print("Neplatné ID! Zadajte číslo.")
 
     def akutalizacia_knizneho_zoznamu(self):
