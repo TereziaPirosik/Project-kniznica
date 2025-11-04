@@ -2,61 +2,97 @@
 import json
 from datetime import datetime, timedelta
 
-class Kniha:
+
+class KniznicnyZaznam:
+
+    def __init__(self, id = None):
+        if id is not None:
+            self.id = id
+        else:
+            self.id = self.__class__.id_counter
+            self.__class__.id_counter += 1
+
+    @classmethod
+    def nacitaj_id(cls):
+        try:
+            with open(cls.ID_CONF_FILE, 'r', encoding = "utf-8") as f:
+                uni_data = json.load(f)
+                cls.id_counter = uni_data.get('last_id',1)
+        except(FileNotFoundError, json.JSONDecodeError):
+            cls.id_counter = 1
+
+    @classmethod
+    def uloz_id(cls):
+        with open(cls.ID_CONF_FILE, 'w', encoding = "utf-8") as f:
+            json.dump({'last_id': cls.id_counter}, f)
+            
+    @classmethod
+    def nacitaj_zoznamy(cls, subor_path, zoznam, vytvor_objekt):
+        with open(subor_path, "r", encoding = "utf-8") as subor:
+            data = json.load(subor)
+            
+            max_id = 0
+            print(f"\nNačítavam záznamy z {subor_path}")
+
+            for zaznam in data:
+                novy_objekt = vytvor_objekt(**zaznam)
+                zoznam.append(novy_objekt)
+            
+
+                if novy_objekt.id > max_id:
+                    max_id = novy_objekt.id
+                    
+            vytvor_objekt.id_counter = max_id + 1
+            print(f"nacitany zaznam")
+
+class Kniha(KniznicnyZaznam):
+
     id_counter = 1
+    ID_CONF_FILE = 'kniha_id.json'
     
-    def __init__(self, nazov_autora, nazov_knihy, ISBN, rok_vydania, kategoria, pozicanie = False, zaciatok_vypozicky = None, koniec_vypozicky = None):
-        self.id = Kniha.id_counter
-        Kniha.id_counter +=1
+    def __init__(self, nazov_autora, nazov_knihy, ISBN, rok_vydania, kategoria, pozicanie = False, zaciatok_vypozicky = None, koniec_vypozicky = None, id = None):
+        #if id is not None:
+         #   self.id = id
+        #else:
+        super().__init__(id)
+
         
         self.nazov_autora = nazov_autora
         self.nazov_knihy = nazov_knihy
         self.ISBN = int(ISBN)
         self.rok_vydania = int(rok_vydania)
-        #self.pozicanie = pozicanie
+        self.pozicanie = pozicanie
         self.kategoria = kategoria
-         
+        self.zaciatok_vypozicky = zaciatok_vypozicky
+        self.koniec_vypozicky = koniec_vypozicky
+
+       
 
     def __str__(self):
         return f"{self.id}: {self.nazov_autora}: {self.nazov_knihy}, {self.rok_vydania}, {self.pozicanie}, {self.ISBN}, {self.kategoria}, {self.zaciatok_vypozicky} - {self.koniec_vypozicky}"
 
-    #def kniha_dict(self):
-        #return{
-         #   "Meno autora": self.nazov_autora,
-          #  "Názov knihy": self.nazov_knihy,
-           # "Číslo ISBN": self.ISBN,
-            #"Rok vydania": self.rok_vydania,
-            #"Požičaná": self.pozicanie,
-            #"Kategória": self.kategoria,
-            #"Dátum vypožičania": self.zaciatok_vypozicky, 
-            #"Koniec výpožičky": self.koniec_vypozicky 
-          #}
-
 
         
-class Clen:
+class Clen(KniznicnyZaznam):
     id_counter = 1
+    ID_CONF_FILE = 'clen_id.json'
     
-    def __init__(self, meno_clena, priezvisko_clena, rok_narodenia, zoznam_pozicanych):
-        self.id = Clen.id_counter
-        Clen.id_counter += 1
+    def __init__(self, meno_clena, priezvisko_clena, rok_narodenia, zoznam_pozicanych = None, id = None):
+
+        super().__init__(id)
+
+        #self.id = id
         self.meno_clena = meno_clena
         self.priezvisko_clena = priezvisko_clena
         self.rok_narodenia = rok_narodenia
-        self.zoznam_pozicanych = zoznam_pozicanych
+        self.zoznam_pozicanych = zoznam_pozicanych if zoznam_pozicanych is not None else []
         
 
     def __str__(self):
         return f"{self.id}: {self.meno_clena} {self.priezvisko_clena} {self.rok_narodenia} {self.zoznam_pozicanych}"
 
-    def clen_dict(self):
-        return {
-            "ID": self.id,
-            "Meno": self.meno_clena,
-            "Priezvisko": self.priezvisko_clena,
-            "Rok_narodenia": self.rok_narodenia,
-            "Požičané knihy": self.zoznam_pozicanych
-        }
+
+    
         
 
 class Kniznica:
@@ -68,6 +104,7 @@ class Kniznica:
         self.nacitaj_zoznam_clenov()
         self.nacitaj_knizny_zoznam()
         
+        
 
 
     def __str__(self):
@@ -75,15 +112,28 @@ class Kniznica:
         return f"{self.zoznam_clenov}"
 
     def nacitaj_knizny_zoznam(self):
-         with open("book.json", "r", encoding = "utf-8") as subor:
-            books = json.load(subor)
+         #with open("book.json", "r", encoding = "utf-8") as subor:
+         #   books = json.load(subor)
             
-            for book in books:
-                existujuca_kniha = Kniha(**book)
-                self.knizny_zoznam.append(existujuca_kniha)
-            print("Dáta zo súboru book.json sú načítané.")
-  
-    
+         #   max_id = 0
+            
+          #  for book in books:
+           #     existujuca_kniha = Kniha(**book)
+            #    self.knizny_zoznam.append(existujuca_kniha)
+
+             #   if existujuca_kniha.id > max_id:
+              #      max_id = existujuca_kniha.id
+
+            #Kniha.id_counter = max_id + 1 
+                    
+            #print("Dáta zo súboru book.json sú načítané.")
+        KniznicnyZaznam.nacitaj_zoznamy(
+            subor_path = "book.json",
+            zoznam = self.knizny_zoznam,
+            vytvor_objekt = Kniha
+            )
+              
+             
     def vypis_knizny_zoznam(self):
         for kniha in self.knizny_zoznam:
             print(f"\n{kniha}")
@@ -107,14 +157,14 @@ class Kniznica:
         
         print("Napíš rok vydania knihy: ")
         rok_vydania = input()
-        print("Poskytnite informáciu, či je kniha požičana. Ak áno, napíšte Y, ak nie, tak napíšte N")
-        pozicanie = input()
+        #print("Poskytnite informáciu, či je kniha požičana. Ak áno, napíšte Y, ak nie, tak napíšte N")
+        #pozicanie = input()
         print("Napíšte do akej kategórie kniha patrí: ")
         kategoria = input()
-        zaciatok_vypozicky = None 
-        koniec_vypozicky = None
+        #zaciatok_vypozicky = None 
+        #koniec_vypozicky = None
         
-        nova_kniha = Kniha(nazov_autora, nazov_knihy, ISBN, rok_vydania, pozicanie, kategoria, zaciatok_vypozicky, koniec_vypozicky)
+        nova_kniha = Kniha(nazov_autora, nazov_knihy, ISBN, rok_vydania, kategoria)
         self.knizny_zoznam.append(nova_kniha)
         print(f"{str(nova_kniha)} \nbola pridaná do knižného zoznamu.")
         
@@ -280,13 +330,17 @@ class Kniznica:
 
 
     def nacitaj_zoznam_clenov(self):
-        with open("data.json", "r", encoding = "utf-8") as subor:
-            data = json.load(subor)
-            for clen in data:
-                existujuci_clen = Clen(clen["Meno"], clen["Priezvisko"], clen["Rok_narodenia"], clen["Požičané knihy"])
-                self.zoznam_clenov.append(existujuci_clen)
-        print("Dáta zo súboru data.json sú načítané.")
-
+        #with open("data.json", "r", encoding = "utf-8") as subor:
+         #   data = json.load(subor)
+          #  for clen in data:
+           #     existujuci_clen = Clen(**clen)
+            #    self.zoznam_clenov.append(existujuci_clen)
+        #print("Dáta zo súboru data.json sú načítané.")
+        KniznicnyZaznam.nacitaj_zoznamy(
+            subor_path = "data.json",
+            zoznam = self.zoznam_clenov,
+            vytvor_objekt = Clen
+            )
         
  
 
@@ -297,7 +351,7 @@ class Kniznica:
         rok_narodenia = int(input("Napíš rok narodenia: "))
         zoznam_pozicanych = []
         
-        novy_clen = Clen(meno_clena, priezvisko_clena, rok_narodenia, zoznam_pozicanych)
+        novy_clen = Clen(meno_clena, priezvisko_clena, rok_narodenia)
         
         for clen in self.zoznam_clenov:
             if (clen.meno_clena.lower() == meno_clena.lower() and
@@ -311,7 +365,7 @@ class Kniznica:
         self.aktualizacia_zoznamu_clenov()
 
             
-        print(f"\nNový člen {meno_clena} {priezvisko_clena} je pridaný.\n")
+        print(f"\nNový člen {novy_clen.id} {meno_clena} {priezvisko_clena} je pridaný.\n")
         print("Údaje boli pridané do súboru data.json.\n")
 
         return True
@@ -417,7 +471,7 @@ class Kniznica:
     def akutalizacia_knizneho_zoznamu(self):
         kniha_to_dict = []
         for kniha in self.knizny_zoznam:
-            data_in_dict = kniha.kniha_dict()
+            data_in_dict = vars(kniha)
             kniha_to_dict.append(data_in_dict)
             
     
@@ -428,7 +482,7 @@ class Kniznica:
     def aktualizacia_zoznamu_clenov(self):
         clen_to_dict = []
         for person in self.zoznam_clenov:
-            data_in_dict = person.clen_dict()
+            data_in_dict = vars(person)
             clen_to_dict.append(data_in_dict)
             
         #[person.clen_dict() for person in self.zoznam_clenov] - kratsi zapis for cyklu
@@ -465,6 +519,10 @@ def menu():
 
 
 def spusti_program():
+
+    Kniha.nacitaj_id()
+    Clen.nacitaj_id()
+    
     kniznica = Kniznica()
 
     while True:

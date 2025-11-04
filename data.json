@@ -1,57 +1,64 @@
 [
     {
-        "ID": 1,
-        "Meno": "Dusan",
-        "Priezvisko": "Pirosik",
-        "Rok_narodenia": 1990,
-        "Požičané knihy": [
+        "id": 1,
+        "meno_clena": "Dusan",
+        "priezvisko_clena": "Pirosik",
+        "rok_narodenia": 1990,
+        "zoznam_pozicanych": [
             12
         ]
     },
     {
-        "ID": 2,
-        "Meno": "Lucia",
-        "Priezvisko": "Vrabcekova",
-        "Rok_narodenia": 2000,
-        "Požičané knihy": [
+        "id": 2,
+        "meno_clena": "Lucia",
+        "priezvisko_clena": "Vrabcekova",
+        "rok_narodenia": 2000,
+        "zoznam_pozicanych": [
             3
         ]
     },
     {
-        "ID": 3,
-        "Meno": "Paula ",
-        "Priezvisko": "Paulíková",
-        "Rok_narodenia": 2002,
-        "Požičané knihy": []
+        "id": 3,
+        "meno_clena": "Paula ",
+        "priezvisko_clena": "Paulíková",
+        "rok_narodenia": 2002,
+        "zoznam_pozicanych": []
     },
     {
-        "ID": 4,
-        "Meno": "Gabriel",
-        "Priezvisko": "Benian",
-        "Rok_narodenia": 1993,
-        "Požičané knihy": [
+        "id": 4,
+        "meno_clena": "Gabriel",
+        "priezvisko_clena": "Benian",
+        "rok_narodenia": 1993,
+        "zoznam_pozicanych": [
             4
         ]
     },
     {
-        "ID": 5,
-        "Meno": "Veronika",
-        "Priezvisko": "Hýllová",
-        "Rok_narodenia": 1989,
-        "Požičané knihy": []
+        "id": 5,
+        "meno_clena": "Veronika",
+        "priezvisko_clena": "Hýllová",
+        "rok_narodenia": 1989,
+        "zoznam_pozicanych": []
     },
     {
-        "ID": 7,
-        "Meno": "Júlia",
-        "Priezvisko": "Vrabčeková",
-        "Rok_narodenia": 1997,
-        "Požičané knihy": []
+        "id": 7,
+        "meno_clena": "Júlia",
+        "priezvisko_clena": "Vrabčeková",
+        "rok_narodenia": 1997,
+        "zoznam_pozicanych": []
     },
     {
-        "ID": 8,
-        "Meno": "Gabriela",
-        "Priezvisko": "Biela",
-        "Rok_narodenia": 1998,
-        "Požičané knihy": []
+        "id": 8,
+        "meno_clena": "Gabriela",
+        "priezvisko_clena": "Biela",
+        "rok_narodenia": 1998,
+        "zoznam_pozicanych": []
+    },
+    {
+        "id": 9,
+        "meno_clena": "Brain",
+        "priezvisko_clena": "Adams",
+        "rok_narodenia": 1955,
+        "zoznam_pozicanych": []
     }
 ]

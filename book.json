@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "nazov_autora": "Jules Verne",
         "nazov_knihy": "Cesta do stredu Zeme",
         "ISBN": 231354684321684351,
@@ -10,6 +11,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 2,
         "nazov_autora": "Tessa Afsharova",
         "nazov_knihy": "Perla z piesku",
         "ISBN": 789132165894651,
@@ -20,6 +22,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 3,
         "nazov_autora": "Adrian Johns",
         "nazov_knihy": "Piratstvi",
         "ISBN": 13216879164984156165,
@@ -30,6 +33,7 @@
         "koniec_vypozicky": "18.10.2025"
     },
     {
+        "id": 4,
         "nazov_autora": "Ernest Hemingway",
         "nazov_knihy": "Komu zvonia do hrobu",
         "ISBN": 21698765165491,
@@ -40,6 +44,7 @@
         "koniec_vypozicky": "18.10.2025"
     },
     {
+        "id": 5,
         "nazov_autora": "V.P.Borovicka",
         "nazov_knihy": "Vyzvedaci z Tel Avivu",
         "ISBN": 1235468189465,
@@ -50,6 +55,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 6,
         "nazov_autora": "Peter Bucany",
         "nazov_knihy": "Mam strach",
         "ISBN": 9788080745868,
@@ -60,6 +66,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 7,
         "nazov_autora": "Petr Ludwig",
         "nazov_knihy": "Konec prokrastinace",
         "ISBN": 561324687354654,
@@ -70,6 +77,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 8,
         "nazov_autora": "Joel Marsh",
         "nazov_knihy": "UX pro zacatecniky",
         "ISBN": 9788074133978,
@@ -80,6 +88,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 9,
         "nazov_autora": "Marek Vagovič",
         "nazov_knihy": "Vlastnou hlavou",
         "ISBN": 9788081594410,
@@ -90,6 +99,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 10,
         "nazov_autora": "Julie Soto",
         "nazov_knihy": "Rose in Chains",
         "ISBN": 9780008711689,
@@ -100,6 +110,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 11,
         "nazov_autora": "Jennifer Tuckerová",
         "nazov_knihy": "Dych ako modlitba",
         "ISBN": 9788083000117,
@@ -110,6 +121,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 12,
         "nazov_autora": "Nigel Toon",
         "nazov_knihy": "How AI thinks",
         "ISBN": 9781911709473,
@@ -120,6 +132,7 @@
         "koniec_vypozicky": "20.10.2025"
     },
     {
+        "id": 13,
         "nazov_autora": "Adam Grant",
         "nazov_knihy": "Skryty potencial",
         "ISBN": 9788055199054,
@@ -130,6 +143,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 14,
         "nazov_autora": "Veronika Consculluela",
         "nazov_knihy": "Scvrknuty svet",
         "ISBN": 9788082035622,
@@ -140,6 +154,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 15,
         "nazov_autora": "Neil De Grasse Tyson",
         "nazov_knihy": "Astrofyzika pre zaneprazdnenych",
         "ISBN": 9788022209014,
@@ -150,6 +165,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 16,
         "nazov_autora": "Jozef Karika",
         "nazov_knihy": "Pád",
         "ISBN": 9788057501671,
@@ -160,6 +176,7 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 17,
         "nazov_autora": "Jenny Colgan",
         "nazov_knihy": "Vianoce na ostrove",
         "ISBN": 9788083051973,
@@ -170,6 +187,7 @@
         "koniec_vypozicky": "19.10.2025"
     },
     {
+        "id": 18,
         "nazov_autora": "Andrzej Sapkowski",
         "nazov_knihy": "Zaklínač: Posledné želanie",
         "ISBN": 9788056617373,
@@ -180,12 +198,35 @@
         "koniec_vypozicky": null
     },
     {
+        "id": 19,
         "nazov_autora": "Antoine de Saint-Exupéry",
         "nazov_knihy": "Malý princ",
         "ISBN": 9788055641423,
         "rok_vydania": 2020,
         "pozicanie": false,
         "kategoria": "rozprávky",
+        "zaciatok_vypozicky": null,
+        "koniec_vypozicky": null
+    },
+    {
+        "id": 20,
+        "nazov_autora": "Brian Tome",
+        "nazov_knihy": "5 znaku muze",
+        "ISBN": 9788087239537,
+        "rok_vydania": 2021,
+        "pozicanie": false,
+        "kategoria": "odborne a naucne",
+        "zaciatok_vypozicky": null,
+        "koniec_vypozicky": null
+    },
+    {
+        "id": 21,
+        "nazov_autora": "Lenka Mančíková",
+        "nazov_knihy": "Kvások: Zázrak z vody a múky",
+        "ISBN": 9788081114670,
+        "rok_vydania": 2017,
+        "pozicanie": false,
+        "kategoria": "Odborné a náučné",
         "zaciatok_vypozicky": null,
         "koniec_vypozicky": null
     }
