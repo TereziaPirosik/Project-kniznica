@@ -126,10 +126,10 @@
         "nazov_knihy": "How AI thinks",
         "ISBN": 9781911709473,
         "rok_vydania": 2024,
-        "pozicanie": true,
+        "pozicanie": false,
         "kategoria": "odborne a naucne",
-        "zaciatok_vypozicky": "10.10.2025",
-        "koniec_vypozicky": "20.10.2025"
+        "zaciatok_vypozicky": null,
+        "koniec_vypozicky": null
     },
     {
         "id": 13,
@@ -143,17 +143,6 @@
         "koniec_vypozicky": null
     },
     {
-        "id": 14,
-        "nazov_autora": "Veronika Consculluela",
-        "nazov_knihy": "Scvrknuty svet",
-        "ISBN": 9788082035622,
-        "rok_vydania": 2025,
-        "pozicanie": false,
-        "kategoria": "zivotopisy a reportaze",
-        "zaciatok_vypozicky": null,
-        "koniec_vypozicky": null
-    },
-    {
         "id": 15,
         "nazov_autora": "Neil De Grasse Tyson",
         "nazov_knihy": "Astrofyzika pre zaneprazdnenych",
@@ -161,7 +150,7 @@
         "rok_vydania": 2017,
         "pozicanie": false,
         "kategoria": "odborne a naucne",
-        "zaciatok_vypozicky": "None",
+        "zaciatok_vypozicky": null,
         "koniec_vypozicky": null
     },
     {
@@ -170,10 +159,10 @@
         "nazov_knihy": "Pád",
         "ISBN": 9788057501671,
         "rok_vydania": 2025,
-        "pozicanie": false,
+        "pozicanie": true,
         "kategoria": "Detektivka",
-        "zaciatok_vypozicky": "None",
-        "koniec_vypozicky": null
+        "zaciatok_vypozicky": "11.11.2025",
+        "koniec_vypozicky": "21.11.2025"
     },
     {
         "id": 17,
@@ -194,39 +183,6 @@
         "rok_vydania": 2020,
         "pozicanie": false,
         "kategoria": "fantasy",
-        "zaciatok_vypozicky": null,
-        "koniec_vypozicky": null
-    },
-    {
-        "id": 19,
-        "nazov_autora": "Antoine de Saint-Exupéry",
-        "nazov_knihy": "Malý princ",
-        "ISBN": 9788055641423,
-        "rok_vydania": 2020,
-        "pozicanie": false,
-        "kategoria": "rozprávky",
-        "zaciatok_vypozicky": null,
-        "koniec_vypozicky": null
-    },
-    {
-        "id": 20,
-        "nazov_autora": "Brian Tome",
-        "nazov_knihy": "5 znaku muze",
-        "ISBN": 9788087239537,
-        "rok_vydania": 2021,
-        "pozicanie": false,
-        "kategoria": "odborne a naucne",
-        "zaciatok_vypozicky": null,
-        "koniec_vypozicky": null
-    },
-    {
-        "id": 21,
-        "nazov_autora": "Lenka Mančíková",
-        "nazov_knihy": "Kvások: Zázrak z vody a múky",
-        "ISBN": 9788081114670,
-        "rok_vydania": 2017,
-        "pozicanie": false,
-        "kategoria": "Odborné a náučné",
         "zaciatok_vypozicky": null,
         "koniec_vypozicky": null
     }

@@ -4,9 +4,7 @@
         "meno_clena": "Dusan",
         "priezvisko_clena": "Pirosik",
         "rok_narodenia": 1990,
-        "zoznam_pozicanych": [
-            12
-        ]
+        "zoznam_pozicanych": []
     },
     {
         "id": 2,
@@ -52,13 +50,15 @@
         "meno_clena": "Gabriela",
         "priezvisko_clena": "Biela",
         "rok_narodenia": 1998,
-        "zoznam_pozicanych": []
+        "zoznam_pozicanych": [
+            16
+        ]
     },
     {
         "id": 9,
-        "meno_clena": "Brain",
-        "priezvisko_clena": "Adams",
-        "rok_narodenia": 1955,
+        "meno_clena": "Gabriela",
+        "priezvisko_clena": "Sulin",
+        "rok_narodenia": 1996,
         "zoznam_pozicanych": []
     }
 ]
