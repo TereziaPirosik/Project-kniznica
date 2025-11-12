@@ -43,7 +43,7 @@ class KniznicnyZaznam:
                     max_id = novy_objekt.id
                     
             vytvor_objekt.id_counter = max_id + 1
-            print(f"nacitany zaznam")
+            print(f"načítaný záznam")
 
 
 class Kniha(KniznicnyZaznam):
@@ -199,7 +199,7 @@ class Kniznica:
 
         kniha = kniha[0]
         if kniha.pozicanie:
-            print("Kniha je uz pozicana.")
+            print("Kniha je už požičaná.")
             return False
 
         clenovia = self.najdi_clena()
@@ -208,11 +208,11 @@ class Kniznica:
         
         if len(clenovia) > 1:
             try:
-                id_clena = int(input("\nZadajte ID clena, ktory si knihu poziciava: "))
+                id_clena = int(input("\nZadajte ID člena, ktorý si knihu požičiava: "))
                 clen = self.najdi_clena_podla_id(id_clena)
                 
             except ValueError:
-                print("Neplatne ID clena.")
+                print("Neplatné ID člena.")
                 return False
         else:
             clen = clenovia[0]
@@ -223,7 +223,7 @@ class Kniznica:
         self.aktualizacia_zoznamu_clenov()
         self.akutalizacia_knizneho_zoznamu()
 
-        print(f"Kniha {kniha.nazov_knihy} bola uspesne pozicana clenom {clen.meno_clena} {clen.priezvisko_clena}.")
+        print(f"Kniha {kniha.nazov_knihy} bola úspešne požičaná členom {clen.meno_clena} {clen.priezvisko_clena}.")
         return True
         
 
@@ -232,25 +232,25 @@ class Kniznica:
         knihy = self.najdi_knihu_nazov_knihy()
 
         if not knihy:
-            print("Kniha nebola najdena.")
+            print("Kniha nebola nájdená.")
             return False
         kniha = knihy[0]
         
         if not kniha.pozicanie:
-            print("Tato kniha nie je pozicana.")
+            print("Táto kniha nie je požičaná.")
             return False
 
         print(f"{kniha.id}: {kniha.nazov_knihy} od {kniha.nazov_autora}")
         
-        if not self.potvrdit_volbu(f"Chcete vratit tuto knihu '{kniha.nazov_knihy}'? (Y/N): "):
+        if not self.potvrdit_volbu(f"Chcete vrátiť túto knihu '{kniha.nazov_knihy}'? (Y/N): "):
             return False
 
         try:
-            id_clena = int(input("Zadajte ID clena, ktory knihu vracia: "))
+            id_clena = int(input("Zadajte ID člena, ktorý knihu vracia: "))
             clen = self.najdi_clena_podla_id(id_clena)
 
             if not clen:
-                print("Clen  s tymto ID neexistuje")
+                print("Člen  s týmto ID neexistuje!")
                 return False
 
             if clen.vrat_knihu(kniha.id):
@@ -259,45 +259,45 @@ class Kniznica:
                 self.aktualizacia_zoznamu_clenov()
                 self.akutalizacia_knizneho_zoznamu()
 
-                print(f"{kniha.nazov_knihy} bola uspesne vratena.")
+                print(f"{kniha.nazov_knihy} bola úspešne vrátená.")
                 return True
             else:
-                print("Tato kniha nie je pozicana tymto clenom.")
+                print("Táto kniha nie je požičaná týmto členom.")
                 return False
             
         except ValueError:
-            print("Neplatne ID clena.")
+            print("Neplatne ID čena.")
             return False
             
     
                                 
     def vymaz(self, atribut, konverzia = None):
 
-        text_vyzvy = f"Napis {atribut.replace('_', ' ')}, ktory chces vymazat: "
+        text_vyzvy = f"Napíš {atribut.replace('_', ' ')}, ktorý chceš vymazať: "
         hodnota = input(text_vyzvy)
 
         if konverzia:
             try:
                 hodnota = konverzia(hodnota)
             except ValueError:
-                print(f"Neplatny format pre  {atribut}")
+                print(f"Neplatný formát pre  {atribut}")
                 return False
             
         
         for kniha in self.knizny_zoznam[:]:
             if getattr(kniha, atribut) == hodnota:   
                 if kniha.pozicanie:
-                    print(f"Kniha je pozicana. Nemozete knihu vymazat!")
+                    print(f"Kniha je požičaná. Nemôžete knihu vymazať!")
                     return False
                 
-                print(f"\nNasla sa kniha: {kniha}")
-                if not self.potvrdit_volbu(f"Naozaj chcete vymazat tuto knihu? (Y/N)"):
-                    print("vymazanie knihy bolo zrusene.")
+                print(f"\nNašla sa kniha: {kniha}")
+                if not self.potvrdit_volbu(f"Naozaj chcete vymazať túto knihu? (Y/N)"):
+                    print("Vymazanie knihy bolo zrušené.")
                     return False
                 
                 self.knizny_zoznam.remove(kniha)
                 self.akutalizacia_knizneho_zoznamu()
-                print(f"Kniha s {atribut} = {hodnota} bola vymazana.")
+                print(f"Kniha s {atribut} = {hodnota} bola vymazaná.")
                 return True
             
        
@@ -375,13 +375,13 @@ class Kniznica:
 
         for objekt in zoznam:
            if getattr(objekt, atribut).lower() == hladana_hodnota.lower():
-               print(f"{nazov_objektu.capitalize()} bol najdeny: {objekt}")
+               print(f"{nazov_objektu.capitalize()} bol nájdený: {objekt}")
                najdeny.append(objekt)
                
                #return objekt
 
         if not najdeny:
-            print(f"{nazov_objektu.capitalize()} sa nenachadza v zozname.")
+            print(f"{nazov_objektu.capitalize()} sa nenachádza v zozname.")
             return []
         
         return najdeny
@@ -409,18 +409,18 @@ class Kniznica:
         return None
         
     def vymaz_clena(self):
-        odstranit = int(input("\nZadajte ID/číslo člena, ktorého chcete vymazať: "))
+        try:
+            odstranit = int(input("\nZadajte ID/číslo člena, ktorého chcete vymazať: "))
        
-        for clen in self.zoznam_clenov:
-            if clen.id == odstranit:
-                if clen.zoznam_pozicanych:
-                    print(f"Člen má stále požičané knihy (ID kníh: {clen.zoznam_pozicanych})")
-                    print("Najprv je potrebné vrátiť všetky požičané knihy.")
-                    return False
-                else:
+            for clen in self.zoznam_clenov:
+                if clen.id == odstranit:
+                    if clen.zoznam_pozicanych:
+                        print(f"Člen má stále požičané knihy (ID kníh: {clen.zoznam_pozicanych})")
+                        print("Najprv je potrebné vrátiť všetky požičané knihy.")
+                        return False
+                
                     print(f"{clen}")
-                    potvrdenie = input(f"\nNaozaj chcete vymazať člena s ID {odstranit}? Ak áno stlačte Y, ak nie stlačte N: ") 
-                    if potvrdenie == "Y":
+                    if self.potvrdit_volbu(f"\nNaozaj chcete vymazať člena s ID {odstranit}?(Y/N): "):
                         self.zoznam_clenov.remove(clen)
                         self.aktualizacia_zoznamu_clenov()
                         print("Člen bol vymazaný.")
@@ -429,36 +429,42 @@ class Kniznica:
                         print("Člen bol ponechaný v zozname.")
                         return False
 
-        else:
+       
             print("Člen s týmto ID neexistuje.")
             return False
                     
-        
+        except ValueError:
+            print("Neplatne ID! Zadajte číslo.")
+            return False
 
 
     def zobrazit_knihy_clen(self):
         print("Pre zobrazenie kníh, ktoré má člen požičané zadaj ID člena: ")
         try:
             ID_clen = int(input())
-            clen_najdeny = False
-            
-            for clen in self.zoznam_clenov:
-                if clen.id == ID_clen:
-                    clen_najdeny = True
-                    print(f"Knihy požičané členom {clen.meno_clena} {clen.priezvisko_clena}: ")
+            #clen_najdeny = False
+            clen = self.najdi_clena_podla_id(ID_clen)
+            if clen:
+                print(f"Knihy požičané členom {clen.meno_clena} {clen.priezvisko_clena}: ")
 
-                    if not clen.zoznam_pozicanych:
-                        print(f"{clen.meno_clena} {clen.priezvisko_clena} nemá požičané žiadne knihy.")
+                
+            #for clen in self.zoznam_clenov:
+                #if clen.id == ID_clen:
+                 #   clen_najdeny = True
+                    #print(f"Knihy požičané členom {clen.meno_clena} {clen.priezvisko_clena}: ")
+
+                if not clen.zoznam_pozicanych:
+                    print(f"{clen.meno_clena} {clen.priezvisko_clena} nemá požičané žiadne knihy.")
                         
                 
-                    else:
-                        for id_knihy in clen.zoznam_pozicanych:
-                            for kniha in self.knizny_zoznam:
-                                if kniha.id == id_knihy:
-                                    print(f"{kniha. nazov_autora} \n{kniha.nazov_knihy} \n{kniha.zaciatok_vypozicky} - {kniha.koniec_vypozicky}\n")
-                    break
-                
-            if not clen_najdeny:        
+                else:
+                    for id_knihy in clen.zoznam_pozicanych:
+                        for kniha in self.knizny_zoznam:
+                            if kniha.id == id_knihy:
+                                print(f"{kniha. nazov_autora} \n{kniha.nazov_knihy} \n{kniha.zaciatok_vypozicky} - {kniha.koniec_vypozicky}\n")
+                    #break
+            else:    
+            #if not clen_najdeny:        
                 print(f"Člen s ID {ID_clen} nebol nájdený.")
             
         except ValueError:
@@ -488,7 +494,7 @@ class Kniznica:
             json.dump(clen_to_dict, subor, indent = 4, ensure_ascii = False)
             
 
-    def potvrdit_volbu(self, sprava="Potvrdte volbu (Y/N): "):
+    def potvrdit_volbu(self, sprava="Potvrďte voľbu (Y/N): "):
         while True:
             odpoved = input(sprava).upper()
             if odpoved == "Y":
@@ -496,7 +502,7 @@ class Kniznica:
             elif odpoved == "N":
                 return False
             else:
-                print("Neplatna volba. Zadajte Y pre ano ale N pre nie.")
+                print("Neplatná voľba. Zadajte Y pre áno ale N pre nie.")
 
 
 
