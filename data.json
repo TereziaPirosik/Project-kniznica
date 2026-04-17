@@ -60,5 +60,12 @@
         "priezvisko_clena": "Sulin",
         "rok_narodenia": 1996,
         "zoznam_pozicanych": []
+    },
+    {
+        "id": 10,
+        "meno_clena": "Uršula",
+        "priezvisko_clena": "Jelinková",
+        "rok_narodenia": 1988,
+        "zoznam_pozicanych": []
     }
 ]

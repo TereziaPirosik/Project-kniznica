@@ -41,7 +41,7 @@
         "pozicanie": true,
         "kategoria": "Svetova proza",
         "zaciatok_vypozicky": "08.10.2025",
-        "koniec_vypozicky": "18.10.2025"
+        "koniec_vypozicky": "28.10.2025"
     },
     {
         "id": 5,
@@ -173,7 +173,7 @@
         "pozicanie": true,
         "kategoria": "Beletria",
         "zaciatok_vypozicky": "09.10.2025",
-        "koniec_vypozicky": "19.10.2025"
+        "koniec_vypozicky": "08.11.2025"
     },
     {
         "id": 18,
@@ -183,6 +183,74 @@
         "rok_vydania": 2020,
         "pozicanie": false,
         "kategoria": "fantasy",
+        "zaciatok_vypozicky": null,
+        "koniec_vypozicky": null
+    },
+    {
+        "id": 19,
+        "nazov_autora": "Ali Hazelwood",
+        "nazov_knihy": "Absencia lasky",
+        "ISBN": 9788056644461,
+        "rok_vydania": 2024,
+        "pozicanie": false,
+        "kategoria": "roman",
+        "zaciatok_vypozicky": null,
+        "koniec_vypozicky": null
+    },
+    {
+        "id": 20,
+        "nazov_autora": "Sonke Ahrens",
+        "nazov_knihy": "Jak si delat chytre poznamky",
+        "ISBN": 9788075551467,
+        "rok_vydania": 2021,
+        "pozicanie": false,
+        "kategoria": "Odborné a náučné",
+        "zaciatok_vypozicky": null,
+        "koniec_vypozicky": null
+    },
+    {
+        "id": 21,
+        "nazov_autora": "Olivier Lascar",
+        "nazov_knihy": "Svet podla Elona Muska",
+        "ISBN": 9788082421692,
+        "rok_vydania": 2023,
+        "pozicanie": false,
+        "kategoria": "Životopisy a reportáže",
+        "zaciatok_vypozicky": null,
+        "koniec_vypozicky": null
+    },
+    {
+        "id": 22,
+        "nazov_autora": "Petr Ludwig",
+        "nazov_knihy": "Od chaosu ke smyslu",
+        "ISBN": 9788075552761,
+        "rok_vydania": 2025,
+        "pozicanie": false,
+        "kategoria": "Odborné a náučné",
+        "zaciatok_vypozicky": null,
+        "koniec_vypozicky": null
+    },
+    {
+        "id": 23,
+        "nazov_autora": "Jocko Willink, Leif Babin",
+        "nazov_knihy": "Extremne vlastnictvo",
+        "ISBN": 9788081990021,
+        "rok_vydania": 2017,
+        "pozicanie": false,
+        "kategoria": "Odborné a náučné",
+        "zaciatok_vypozicky": null,
+        "koniec_vypozicky": null
+    },
+    {
+        "id": 25,
+        "nazov_autora": "Gabriela Končitíková",
+        "nazov_knihy": "Inspirace Baťa",
+        "ISBN": 9788090818309,
+        "rok_vydania": 2022,
+        "pozicanie": false,
+        "kategoria": [
+            "Životopisy a reportáže"
+        ],
         "zaciatok_vypozicky": null,
         "koniec_vypozicky": null
     }

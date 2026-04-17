@@ -1,0 +1,71 @@
+2026-04-15 10:55:09 | INFO     | logger_conf:setup_logger:79 | Loguru logger je nakonfigurovany
+2026-04-15 10:55:09 | DEBUG    | logger_conf:setup_logger:80 | Logy su ulozene v priecinku: {os.path.abspath(log_dir)}
+2026-04-15 10:55:09 | INFO     | __main__:spusti_program:752 | Spustenie programu kniznica
+2026-04-15 10:55:09 | DEBUG    | __main__:spusti_program:754 | Nacitavanie ID pre knihy
+2026-04-15 10:55:09 | DEBUG    | __main__:spusti_program:756 | Nacitavanie ID pre clenov
+2026-04-15 10:55:09 | INFO     | __main__:spusti_program:759 | Inicializacia kniznice
+2026-04-15 10:55:09 | DEBUG    | logger_conf:wrapper:112 | Volanie funkcie: nacitaj_zoznam_clenov s args = (<__main__.Kniznica object at 0x05060BB8>,), kwargs = {}
+2026-04-15 10:55:09 | DEBUG    | logger_conf:wrapper:115 | Funkcia nacitaj_zoznam_clenov uspesne dokoncena
+2026-04-15 10:55:09 | INFO     | __main__:__init__:159 | Inicializacia kniznice
+2026-04-15 10:58:20 | INFO     | logger_conf:setup_logger:79 | Loguru logger je nakonfigurovany
+2026-04-15 10:58:20 | DEBUG    | logger_conf:setup_logger:80 | Logy su ulozene v priecinku: {os.path.abspath(log_dir)}
+2026-04-15 10:58:20 | INFO     | __main__:spusti_program:752 | Spustenie programu kniznica
+2026-04-15 10:58:20 | DEBUG    | __main__:spusti_program:754 | Nacitavanie ID pre knihy
+2026-04-15 10:58:20 | DEBUG    | __main__:spusti_program:756 | Nacitavanie ID pre clenov
+2026-04-15 10:58:20 | INFO     | __main__:spusti_program:759 | Inicializacia kniznice
+2026-04-15 10:58:20 | DEBUG    | logger_conf:wrapper:112 | Volanie funkcie: nacitaj_zoznam_clenov s args = (<__main__.Kniznica object at 0x05591BB8>,), kwargs = {}
+2026-04-15 10:58:20 | DEBUG    | logger_conf:wrapper:115 | Funkcia nacitaj_zoznam_clenov uspesne dokoncena
+2026-04-15 10:58:20 | INFO     | __main__:__init__:159 | Inicializacia kniznice
+2026-04-15 10:58:28 | INFO     | __main__:spusti_program:766 | Uzivatel vybral volbu: 9
+2026-04-15 10:58:28 | INFO     | __main__:spusti_program:809 | Volba 9: Vypis zoznamu clenov
+2026-04-15 10:58:28 | INFO     | __main__:vypis_zoznam:529 | Vypis zoznamu clenov
+2026-04-15 10:58:28 | DEBUG    | __main__:vypis_zoznam:530 | Pocet clenov v zozname: 9
+2026-04-15 10:58:28 | DEBUG    | __main__:vypis_zoznam:532 | Vypis clena: 1: Dusan Pirosik 1990 []
+2026-04-15 10:58:28 | DEBUG    | __main__:vypis_zoznam:532 | Vypis clena: 2: Lucia Vrabcekova 2000 [3]
+2026-04-15 10:58:28 | DEBUG    | __main__:vypis_zoznam:532 | Vypis clena: 3: Paula  Paulíková 2002 []
+2026-04-15 10:58:28 | DEBUG    | __main__:vypis_zoznam:532 | Vypis clena: 4: Gabriel Benian 1993 [4]
+2026-04-15 10:58:28 | DEBUG    | __main__:vypis_zoznam:532 | Vypis clena: 5: Veronika Hýllová 1989 []
+2026-04-15 10:58:28 | DEBUG    | __main__:vypis_zoznam:532 | Vypis clena: 7: Júlia Vrabčeková 1997 []
+2026-04-15 10:58:28 | DEBUG    | __main__:vypis_zoznam:532 | Vypis clena: 8: Gabriela Biela 1998 [16]
+2026-04-15 10:58:28 | DEBUG    | __main__:vypis_zoznam:532 | Vypis clena: 9: Gabriela Sulin 1996 []
+2026-04-15 10:58:28 | DEBUG    | __main__:vypis_zoznam:532 | Vypis clena: 10: Uršula Jelinková 1988 []
+2026-04-15 10:58:28 | INFO     | __main__:vypis_zoznam:534 | Koniec vypisu zoznamu
+2026-04-15 11:16:56 | INFO     | __main__:spusti_program:766 | Uzivatel vybral volbu: 11
+2026-04-15 11:16:56 | INFO     | __main__:spusti_program:817 | Volba 11: Vyhladavanie clena podla priezviska
+2026-04-15 11:16:56 | INFO     | __main__:najdi_clena_podla_priezviska:575 | Vyhladavanie clena podla priezviska
+2026-04-15 11:16:56 | INFO     | __main__:najdi:539 | Vseobecna metoda pre vyhladavanie OSOBA podla atributu: priezvisko_clena
+2026-04-15 11:16:56 | DEBUG    | __main__:najdi:541 | vyhladavanie: 
+Zadaj priezvisko clena: 
+2026-04-15 11:19:15 | DEBUG    | __main__:najdi:543 | Uzivatel zadal hodnotu: Pirosik
+2026-04-15 11:19:15 | INFO     | __main__:najdi:548 | Osoba najdeny: <class 'object'>
+2026-04-15 11:19:15 | INFO     | __main__:najdi:560 | Celkovy pocet najdenych osoba: 1
+2026-04-15 11:19:15 | INFO     | __main__:najdi:561 | Koniec metody vyhladavania OSOBA
+2026-04-15 12:55:45 | INFO     | logger_conf:setup_logger:79 | Loguru logger je nakonfigurovany
+2026-04-15 12:55:45 | DEBUG    | logger_conf:setup_logger:80 | Logy su ulozene v priecinku: {os.path.abspath(log_dir)}
+2026-04-15 12:55:45 | INFO     | __main__:spusti_program:752 | Spustenie programu kniznica
+2026-04-15 12:55:45 | DEBUG    | __main__:spusti_program:754 | Nacitavanie ID pre knihy
+2026-04-15 12:55:45 | DEBUG    | __main__:spusti_program:756 | Nacitavanie ID pre clenov
+2026-04-15 12:55:45 | INFO     | __main__:spusti_program:759 | Inicializacia kniznice
+2026-04-15 12:55:45 | DEBUG    | logger_conf:wrapper:112 | Volanie funkcie: nacitaj_zoznam_clenov s args = (<__main__.Kniznica object at 0x05FF1BD0>,), kwargs = {}
+2026-04-15 12:55:45 | DEBUG    | logger_conf:wrapper:115 | Funkcia nacitaj_zoznam_clenov uspesne dokoncena
+2026-04-15 12:55:46 | INFO     | __main__:__init__:159 | Inicializacia kniznice
+2026-04-15 13:04:01 | INFO     | __main__:setup_logger:79 | Loguru logger je nakonfigurovany
+2026-04-15 13:04:01 | DEBUG    | __main__:setup_logger:80 | Logy su ulozene v priecinku: {os.path.abspath(log_dir)}
+2026-04-15 13:04:30 | INFO     | logger_conf:setup_logger:79 | Loguru logger je nakonfigurovany
+2026-04-15 13:04:30 | DEBUG    | logger_conf:setup_logger:80 | Logy su ulozene v priecinku: {os.path.abspath(log_dir)}
+2026-04-15 13:04:30 | INFO     | __main__:spusti_program:752 | Spustenie programu kniznica
+2026-04-15 13:04:30 | DEBUG    | __main__:spusti_program:754 | Nacitavanie ID pre knihy
+2026-04-15 13:04:30 | DEBUG    | __main__:spusti_program:756 | Nacitavanie ID pre clenov
+2026-04-15 13:04:30 | INFO     | __main__:spusti_program:759 | Inicializacia kniznice
+2026-04-15 13:04:30 | DEBUG    | logger_conf:wrapper:112 | Volanie funkcie: nacitaj_zoznam_clenov s args = (<__main__.Kniznica object at 0x04DA1BA0>,), kwargs = {}
+2026-04-15 13:04:30 | DEBUG    | logger_conf:wrapper:115 | Funkcia nacitaj_zoznam_clenov uspesne dokoncena
+2026-04-15 13:04:30 | INFO     | __main__:__init__:159 | Inicializacia kniznice
+2026-04-15 13:04:40 | INFO     | logger_conf:setup_logger:79 | Loguru logger je nakonfigurovany
+2026-04-15 13:04:40 | DEBUG    | logger_conf:setup_logger:80 | Logy su ulozene v priecinku: {os.path.abspath(log_dir)}
+2026-04-15 13:04:40 | INFO     | __main__:spusti_program:752 | Spustenie programu kniznica
+2026-04-15 13:04:40 | DEBUG    | __main__:spusti_program:754 | Nacitavanie ID pre knihy
+2026-04-15 13:04:40 | DEBUG    | __main__:spusti_program:756 | Nacitavanie ID pre clenov
+2026-04-15 13:04:40 | INFO     | __main__:spusti_program:759 | Inicializacia kniznice
+2026-04-15 13:04:40 | DEBUG    | logger_conf:wrapper:112 | Volanie funkcie: nacitaj_zoznam_clenov s args = (<__main__.Kniznica object at 0x03EBA510>,), kwargs = {}
+2026-04-15 13:04:40 | DEBUG    | logger_conf:wrapper:115 | Funkcia nacitaj_zoznam_clenov uspesne dokoncena
+2026-04-15 13:04:40 | INFO     | __main__:__init__:159 | Inicializacia kniznice

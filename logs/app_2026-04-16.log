@@ -1,0 +1,18 @@
+2026-04-16 09:44:12 | INFO     | logger_conf:setup_logger:79 | Loguru logger je nakonfigurovany
+2026-04-16 09:44:12 | DEBUG    | logger_conf:setup_logger:80 | Logy su ulozene v priecinku: {os.path.abspath(log_dir)}
+2026-04-16 09:44:12 | INFO     | __main__:spusti_program:769 | Spustenie programu kniznica
+2026-04-16 09:44:12 | DEBUG    | __main__:spusti_program:771 | Nacitavanie ID pre knihy
+2026-04-16 09:44:12 | DEBUG    | __main__:spusti_program:773 | Nacitavanie ID pre clenov
+2026-04-16 09:44:12 | INFO     | __main__:spusti_program:776 | Inicializacia kniznice
+2026-04-16 09:44:12 | DEBUG    | logger_conf:wrapper:112 | Volanie funkcie: nacitaj_zoznam_clenov s args = (<__main__.Kniznica object at 0x05481BA0>,), kwargs = {}
+2026-04-16 09:44:12 | DEBUG    | logger_conf:wrapper:115 | Funkcia nacitaj_zoznam_clenov uspesne dokoncena
+2026-04-16 09:44:12 | INFO     | __main__:__init__:160 | Inicializacia kniznice
+2026-04-16 10:14:59 | INFO     | logger_conf:setup_logger:79 | Loguru logger je nakonfigurovany
+2026-04-16 10:14:59 | DEBUG    | logger_conf:setup_logger:80 | Logy su ulozene v priecinku: {os.path.abspath(log_dir)}
+2026-04-16 10:14:59 | INFO     | __main__:spusti_program:769 | Spustenie programu kniznica
+2026-04-16 10:14:59 | DEBUG    | __main__:spusti_program:771 | Nacitavanie ID pre knihy
+2026-04-16 10:14:59 | DEBUG    | __main__:spusti_program:773 | Nacitavanie ID pre clenov
+2026-04-16 10:14:59 | INFO     | __main__:spusti_program:776 | Inicializacia kniznice
+2026-04-16 10:14:59 | DEBUG    | logger_conf:wrapper:112 | Volanie funkcie: nacitaj_zoznam_clenov s args = (<__main__.Kniznica object at 0x05791BA0>,), kwargs = {}
+2026-04-16 10:14:59 | DEBUG    | logger_conf:wrapper:115 | Funkcia nacitaj_zoznam_clenov uspesne dokoncena
+2026-04-16 10:14:59 | INFO     | __main__:__init__:160 | Inicializacia kniznice
