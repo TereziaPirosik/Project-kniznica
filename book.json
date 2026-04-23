@@ -38,10 +38,10 @@
         "nazov_knihy": "Komu zvonia do hrobu",
         "ISBN": 21698765165491,
         "rok_vydania": 1963,
-        "pozicanie": true,
+        "pozicanie": false,
         "kategoria": "Svetova proza",
-        "zaciatok_vypozicky": "08.10.2025",
-        "koniec_vypozicky": "28.10.2025"
+        "zaciatok_vypozicky": null,
+        "koniec_vypozicky": null
     },
     {
         "id": 5,
@@ -162,7 +162,7 @@
         "pozicanie": true,
         "kategoria": "Detektivka",
         "zaciatok_vypozicky": "11.11.2025",
-        "koniec_vypozicky": "21.11.2025"
+        "koniec_vypozicky": "11.12.2025"
     },
     {
         "id": 17,
@@ -170,7 +170,7 @@
         "nazov_knihy": "Vianoce na ostrove",
         "ISBN": 9788083051973,
         "rok_vydania": 2025,
-        "pozicanie": true,
+        "pozicanie": false,
         "kategoria": "Beletria",
         "zaciatok_vypozicky": "09.10.2025",
         "koniec_vypozicky": "08.11.2025"
@@ -247,11 +247,24 @@
         "nazov_knihy": "Inspirace Baťa",
         "ISBN": 9788090818309,
         "rok_vydania": 2022,
-        "pozicanie": false,
+        "pozicanie": true,
         "kategoria": [
             "Životopisy a reportáže"
         ],
-        "zaciatok_vypozicky": null,
-        "koniec_vypozicky": null
+        "zaciatok_vypozicky": "21.04.2026",
+        "koniec_vypozicky": "01.05.2026"
+    },
+    {
+        "id": 26,
+        "nazov_autora": "Douglas Adams",
+        "nazov_knihy": "Stoparov sprievodca galaxiou",
+        "ISBN": 9788055623566,
+        "rok_vydania": 2016,
+        "pozicanie": true,
+        "kategoria": [
+            "Beletria"
+        ],
+        "zaciatok_vypozicky": "21.04.2026",
+        "koniec_vypozicky": "11.05.2026"
     }
 ]

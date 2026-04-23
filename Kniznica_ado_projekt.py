@@ -1,152 +1,15 @@
+"""Modul pre triedu Kniznica"""
+
 import json
 from datetime import datetime, timedelta
-from typing import Optional, Callable, Any, ClassVar, TypeVar, List
+from typing import Optional, Callable, Any,TypeVar
+from Kniha import Kniha
+from Clen import Clen
+from KniznicnyZaznam import KniznicnyZaznam
 
 from logger_conf import logger, log_function_call
 
 T = TypeVar('T', bound='KniznicnyZaznam')
-
-class KniznicnyZaznam:
-
-    ID_CONF_FILE: ClassVar[Optional[str]] = None
-    id_counter: ClassVar[int] = 1
-
-    def __init__(self, id: Optional[int] = None) -> None:
-        if id is not None:
-            self.id: int = id
-        else:
-            self.id = self.__class__.id_counter
-            self.__class__.id_counter += 1
-
-    @classmethod
-    def nacitaj_id(cls) -> None:
-        if cls.ID_CONF_FILE is None:
-            return
-
-        try:
-            with open(cls.ID_CONF_FILE, 'r', encoding = "utf-8") as f:
-                uni_data: dict[str, Any] = json.load(f)
-                cls.id_counter = uni_data.get('last_id',1)
-        except(FileNotFoundError, json.JSONDecodeError):
-            cls.id_counter = 1
-
-    @classmethod
-    def uloz_id(cls) -> None:
-        if cls.ID_CONF_FILE is None:
-            return
-        try:
-            with open(cls.ID_CONF_FILE, 'w', encoding = "utf-8") as f:
-                json.dump({'last_id': cls.id_counter}, f)
-        except IOError as e:
-            print(f"Chyba pri ukladani ID: {e}")
-
-    @classmethod
-    def nacitaj_zoznamy(cls, subor_path: str, zoznam: List[T], vytvor_objekt: type[T]) -> None:
-        with open(subor_path, "r", encoding = "utf-8") as subor:
-            data: list[dict[str, Any]] = json.load(subor)
-
-            max_id: int = 0
-            print(f"\nNačítavam záznamy z {subor_path}")
-
-            for zaznam in data:
-                novy_objekt: T = vytvor_objekt(**zaznam)
-                zoznam.append(novy_objekt)
-
-                if novy_objekt.id > max_id:
-                    max_id = novy_objekt.id
-
-            vytvor_objekt.id_counter = max_id + 1
-            print("načítaný záznam")
-
-
-class Kniha(KniznicnyZaznam):
-
-    id_counter = 1
-    ID_CONF_FILE = 'kniha_id.json'
-
-    KATEGORIE: list[str] = [
-        "Beletria",
-        "Pre deti a mládež",
-        "Kuchárky",
-        "Náboženstvo a ezoterika",
-        "Odborné a náučné",
-        "Životopisy a reportáže",
-        "Učebnice a slovníky",
-        "Mapy a cestovanie"
-    ]
-
-    def __init__(self, nazov_autora: str, nazov_knihy: str, ISBN:int,
-                rok_vydania: int, kategoria: list[str], pozicanie: bool = False,
-                zaciatok_vypozicky: Optional[str] = None, koniec_vypozicky: Optional[str] = None,
-                id: Optional[int] = None) -> None:
-
-        super().__init__(id)
-
-        self.nazov_autora: str = nazov_autora
-        self.nazov_knihy: str = nazov_knihy
-        self.ISBN: int = int(ISBN)
-        self.rok_vydania: int = int(rok_vydania)
-        self.pozicanie: bool = pozicanie
-        self.kategoria: list[str] = kategoria
-        self.zaciatok_vypozicky: Optional[str] = zaciatok_vypozicky
-        self.koniec_vypozicky: Optional[str] = koniec_vypozicky
-
-
-    def je_k_dispo(self) -> bool:
-        return not self.pozicanie
-
-    def oznac_ako_pozicanu(self) -> None:
-        self.pozicanie = True
-        self.zaciatok_vypozicky = datetime.now().strftime("%d.%m.%Y")
-        koniec = datetime.strptime(self.zaciatok_vypozicky, "%d.%m.%Y") + timedelta(days = 10)
-        self.koniec_vypozicky = koniec.strftime("%d.%m.%Y")
-
-    def oznac_ako_vratenu(self) -> None:
-        self.pozicanie = False
-        self.zaciatok_vypozicky = None
-        self.koniec_vypozicky = None
-
-
-    def __str__(self) -> str:
-
-        return (f"ID:{self.id:2d}. {self.nazov_autora:<25}"
-                f"{self.nazov_knihy:<34}"
-                f"{self.rok_vydania:<10}"
-                f"{self.ISBN:<23}"
-                f"{'Pozicana' if self.pozicanie else 'Dostupna':<8}"
-                f"{f' do: {self.koniec_vypozicky}' if self.pozicanie else '':<20}"
-                f"{''.join(self.kategoria):<10}"
-                )
-
-
-
-class Clen(KniznicnyZaznam):
-    id_counter: ClassVar[int] = 1
-    ID_CONF_FILE: ClassVar[str] = 'clen_id.json'
-
-    def __init__(self, meno_clena: str, priezvisko_clena: str, rok_narodenia: int,
-                 zoznam_pozicanych: Optional[list[int]] = None, id: Optional[int] = None) -> None:
-
-        super().__init__(id)
-
-        self.meno_clena: str = meno_clena
-        self.priezvisko_clena: str = priezvisko_clena
-        self.rok_narodenia: int = rok_narodenia
-        self.zoznam_pozicanych: list[int] = zoznam_pozicanych if zoznam_pozicanych is not None else []
-
-    def __str__(self) -> str:
-        return f"{self.id}: {self.meno_clena} {self.priezvisko_clena} {self.rok_narodenia} {self.zoznam_pozicanych}"
-
-    def pozicaj_si_knihu(self, kniha_id: int) -> None:
-        self.zoznam_pozicanych.append(kniha_id)
-
-    def vrat_knihu(self, kniha_id: int) -> bool:
-        if kniha_id in self.zoznam_pozicanych:
-            self.zoznam_pozicanych.remove(kniha_id)
-            return True
-        return False
-
-
 
 class Kniznica:
 
@@ -248,8 +111,7 @@ class Kniznica:
                 volba: int = int(input("\nZadaj cislo kategorie:\n"))
                 if 1 <= volba <= len(Kniha.KATEGORIE):
                     return Kniha.KATEGORIE[volba - 1]
-                else:
-                    print("\nZadaj cislo od 1 do {len(Kniha.KATEGORIE)}")
+                print("\nZadaj cislo od 1 do {len(Kniha.KATEGORIE)}")
             except ValueError:
                 print("Zadali ste cislo mimo rozsahu.")
 
@@ -451,13 +313,13 @@ class Kniznica:
                 print(f"{kniha.nazov_knihy} bola úspešne vrátená.")
                 logger.info("koniec vratenia knihy")
                 return True
-            else:
-                logger.warning(f"Kniha ID {kniha.id} nie je pozicana clenom ID {id_clena}")
-                print("Táto kniha nie je požičaná týmto členom.")
-                return False
+
+            logger.warning(f"Kniha ID {kniha.id} nie je pozicana clenom ID {id_clena}")
+            print("Táto kniha nie je požičaná týmto členom.")
+            return False
 
         except ValueError:
-            logger.error(f"Neplatne ID clena - valueError")
+            logger.error("Neplatne ID clena - valueError")
             print("Neplatne ID čena.")
             return False
 
@@ -478,7 +340,7 @@ class Kniznica:
         logger.debug(f"Uzivatel zadal hodnotu: {hodnota}")
 
         if konverzia:
-            logger.debug(f"Aplikovanie konverzie na hodnotu")
+            logger.debug("Aplikovanie konverzie na hodnotu")
             try:
                 hodnota = konverzia(hodnota)
                 logger.debug(f"Hodnota po konverzii: {hodnota}")
@@ -554,7 +416,7 @@ class Kniznica:
         print("Zoznam požičaných kníh: \n")
 
         for kniha in self.knizny_zoznam:
-            if kniha.pozicanie == True:
+            if kniha.pozicanie:
                 logger.debug(f"Pozicana kniha: '{kniha.nazov_knihy}' (ID: {kniha.id},"
                             f"(datum vratenia: {kniha.koniec_vypozicky})")
                 print(f"{kniha.id:2d}.{''} {kniha.nazov_autora}\n "
@@ -593,7 +455,7 @@ class Kniznica:
         logger.debug(f"Zadane priezvisko: {priezvisko_clena}")
         rok_narodenia: int = int(input("Napíš rok narodenia: "))
         logger.debug(f"Zadany rok narodenia: {rok_narodenia}")
-        zoznam_pozicanych: list[str] = []
+        zoznam_pozicanych: list[int] = []
 
         novy_clen: Clen = Clen(meno_clena, priezvisko_clena, rok_narodenia, zoznam_pozicanych)
         logger.debug(f"Vytvoreny novy objekt clena s ID: {novy_clen.id}")
@@ -607,7 +469,7 @@ class Kniznica:
                 return False
 
         self.zoznam_clenov.append(novy_clen)
-        logger.debug(f"Clen pridany do zoznamu")
+        logger.debug("Clen pridany do zoznamu")
 
         self.aktualizacia_zoznamu_clenov()
         logger.debug("Zoznam clenov aktualizovany")
@@ -730,15 +592,16 @@ class Kniznica:
                         logger.info(f"Vymazanie clena ID {clen.id} z databazy")
                         self.zoznam_clenov.remove(clen)
                         self.aktualizacia_zoznamu_clenov()
-                        logger.info(f"Clen {clen.meno_clena} {clen.priezvisko_clena} (ID: {clen.id}) je uspesne vymazany")
+                        logger.info(f"Clen {clen.meno_clena} {clen.priezvisko_clena} (ID: {clen.id})"
+                                    "je uspesne vymazany")
                         print("Člen bol vymazaný.")
                         logger.info("Koniec metody vymazania clena")
                         return True
-                    else:
-                        logger.info("Vymazanie zrusene uzivatelom")
-                        print("Člen bol ponechaný v zozname.")
-                        logger.info("Koniec metody vymazania clena")
-                        return False
+
+                    logger.info("Vymazanie zrusene uzivatelom")
+                    print("Člen bol ponechaný v zozname.")
+                    logger.info("Koniec metody vymazania clena")
+                    return False
 
             logger.warning(f"Clen s ID {odstranit} neexistuje")
             print("Člen s týmto ID neexistuje.")
@@ -746,7 +609,7 @@ class Kniznica:
             return False
 
         except ValueError:
-            logger.error(f"Neplatne ID - ValueError")
+            logger.error("Neplatne ID - ValueError")
             print("Neplatne ID! Zadajte číslo.")
             logger.info("Koniec metody vymazania clena")
             return False
@@ -754,45 +617,42 @@ class Kniznica:
 
     def zobrazit_knihy_clen(self) -> None:
         """
-        
+        Zobrazi zoznam knih pozicanych konkretnym clenom. 
+
+        Metoda poziada pouzivatela o zadanie ID clena a vypise vsetky knihy,
+        ktore ma dany clen aktualne pozicane(autor, nazov, datum vypozicania 
+        a datum vratenia).
         """
         logger.info("Zaciatok metody zobrazenia knih clena")
         print("Pre zobrazenie kníh, ktoré má člen požičané zadaj ID člena: ")
         try:
             ID_clen:int = int(input())
             logger.debug(f"Uzivatel zadal ID clena: {ID_clen}")
-            #clen_najdeny = False
+
             clen: Optional[Clen] = self.najdi_clena_podla_id(ID_clen)
-            if clen:
-                logger.info(f"Najdeny clen: {clen.meno_clena} {clen.priezvisko_clena} (ID: {clen.id})")
-                print(f"Knihy požičané členom {clen.meno_clena} {clen.priezvisko_clena}: ")
 
-
-            #for clen in self.zoznam_clenov:
-                #if clen.id == ID_clen:
-                 #   clen_najdeny = True
-                    #print(f"Knihy požičané členom {clen.meno_clena} {clen.priezvisko_clena}: ")
-
-                if not clen.zoznam_pozicanych:
-                    logger.info(f"Clen ID {clen.id} nema pozicane ziadne knihy")
-                    print(f"{clen.meno_clena} {clen.priezvisko_clena} nemá požičané žiadne knihy.")
-
-
-                else:
-                    logger.debug(f"Pocet pozicanych knih clena ID {clen.id}: {len(clen.zoznam_pozicanych)}")
-                    for id_knihy in clen.zoznam_pozicanych:
-                        for kniha in self.knizny_zoznam:
-                            if kniha.id == id_knihy:
-                                logger.debug(f"Zobrazenie knihy ID {kniha.id}: {kniha.nazov_knihy}")
-                                print(f"{kniha. nazov_autora} \n{kniha.nazov_knihy} \n"
-                                      f"{kniha.zaciatok_vypozicky} - {kniha.koniec_vypozicky}\n")
-                    #break
-            else:
-            #if not clen_najdeny:
+            if not clen:
                 logger.warning(f"Clen s ID {ID_clen} nebol najdeny")
                 print(f"Člen s ID {ID_clen} nebol nájdený.")
+                logger.info("Koniec metody zobrazenie knih clena")
+                return
 
-            logger.info("Koniec metody zobrazenie knih clena")
+            logger.info(f"Najdeny clen: {clen.meno_clena} {clen.priezvisko_clena} (ID: {clen.id})")
+            print(f"Knihy požičané členom {clen.meno_clena} {clen.priezvisko_clena}: ")
+
+            if not clen.zoznam_pozicanych:
+                logger.info(f"Clen ID {clen.id} nema pozicane ziadne knihy")
+                print(f"{clen.meno_clena} {clen.priezvisko_clena} nemá požičané žiadne knihy.")
+                logger.info("Koniec metody zobrazenie knih clena")
+                return
+
+            logger.debug(f"Pocet pozicanych knih clena ID {clen.id}: {len(clen.zoznam_pozicanych)}")
+            for id_knihy in clen.zoznam_pozicanych:
+                for kniha in self.knizny_zoznam:
+                    if kniha.id == id_knihy:
+                        logger.debug(f"Zobrazenie knihy ID {kniha.id}: {kniha.nazov_knihy}")
+                        print(f"{kniha. nazov_autora} \n{kniha.nazov_knihy} \n"
+                              f"{kniha.zaciatok_vypozicky} - {kniha.koniec_vypozicky}\n")
 
         except ValueError:
             logger.error("Neplatne ID - ValueError")
@@ -841,7 +701,7 @@ class Kniznica:
 
         logger.info(f"Zoznam clenov uspesne ulozeny do data.json ({len(clen_to_dict)} clenov)")
 
-    def potvrdit_volbu(self, sprava="Potvrďte voľbu (Y/N): ") -> bool:
+    def potvrdit_volbu(self, sprava: str="Potvrďte voľbu (Y/N): ") -> bool:
         """
         Poziada pouzivatela o potvrdenie volby (Y/N).
 
@@ -863,145 +723,3 @@ class Kniznica:
 
             logger.warning(f"Neplatna odpoved: {odpoved}")
             print("Neplatná voľba. Zadajte Y pre áno ale N pre nie.")
-
-
-
-
-def menu() -> None:
-    """
-    Zobrazi sa hlavne menu programu s dostupnymi moznostami
-    """
-
-    print("\n|======================================================================|")
-    print("|                      Vitajte v knižnici                              |")
-    print("|======================================================================|")
-    print("|                                                                      |")
-    print("|1. Pridať novú knihu              8. Pridať nového člena              |")
-    print("|                                                                      |")
-    print("|2. Zobraziť zoznam kníh           9. Zobraziť zoznam členov           |")
-    print("|                                                                      |")
-    print("|3. Požičať knihu                  10. Nájsť člena podľa mena          |")
-    print("|                                                                      |")
-    print("|4. Vrátiť knihu                   11. Nájsť člena podľa priezviska    |")
-    print("|                                                                      |")
-    print("|5. Vymazať Knihu podľa ISBN       12. Vymazať člena                   |")
-    print("|                                                                      |")
-    print("|6. Vymazať knihu podľa názvu      13. Sledovanie požičaných kníh      |")
-    print("|                                                                      |")
-    print("|7. Vyhľadať knihu podľa názvu     14. Zobraziť členové knihy          |")
-    print("|15. predlzenie vypozicky                                              |")
-    print("|======================================================================|")
-    print("|                          e. koniec                                   |")
-    print("|======================================================================|")
-
-
-def spusti_program() -> None:
-    """
-    Hlavna funkcia programu - spusti sa kniznicny system
-
-    Nacita ID pre knihy a clenov, vytvri instanciu kniznice
-    a zobrazi interaktivne menu pre pouzivatela
-    """
-    logger.info("Spustenie programu kniznica")
-
-    logger.debug("Nacitavanie ID pre knihy")
-    Kniha.nacitaj_id()
-    logger.debug("Nacitavanie ID pre clenov")
-    Clen.nacitaj_id()
-
-    logger.info("Inicializacia kniznice")
-    kniznica: Kniznica = Kniznica()
-
-    while True:
-
-        menu()
-        volba: str = input("\nVyberte možnosť (1-14): ")
-        logger.info(f"Uzivatel vybral volbu: {volba}")
-
-        match volba:
-
-                case "1":
-                    logger.info("Volba 1: Pridanie novej knihy")
-                    kniznica.pridaj_novu_knihu()
-
-                case "2":
-                    logger.info("Volba 2: Vypis knizneho zoznamu")
-                    kniznica.vypis_knizny_zoznam()
-
-                case "3":
-                    logger.info("Volba 3: Pozicanie knihy")
-                    kniznica.vypis_knizny_zoznam()
-                    kniznica.vypis_zoznam()
-                    kniznica.pozicaj_knihu()
-
-                case "4":
-                    logger.info("Volba 4: Vratenie knihy")
-                    kniznica.vypis_knizny_zoznam()
-                    kniznica.vypis_zoznam()
-                    kniznica.vratenie_knihy()
-
-                case "5":
-                    logger.info("Volba 5: Vymazanie knihy podla ISBN")
-                    kniznica.vypis_knizny_zoznam()
-                    kniznica.vymaz_knihu_ISBN()
-
-                case "6":
-                    logger.info("Volba 6: Vymazanie knihy podla nazvu")
-                    kniznica.vypis_knizny_zoznam()
-                    kniznica.vymaz_knihu_nazov_knihy()
-
-                case "7":
-                    logger.info("Volba 7: Vyhladavanie knihy podla nazvu")
-                    kniznica.najdi_knihu_nazov_knihy()
-
-                case "8":
-                    logger.info("Volba 8: Pridanie noveho clena")
-                    kniznica.pridaj_noveho_clena()
-
-                case "9":
-                    logger.info("Volba 9: Vypis zoznamu clenov")
-                    kniznica.vypis_zoznam()
-
-                case "10":
-                    logger.info("Volba 10: Vyhladavanie clena podla mena")
-                    kniznica.najdi_clena()
-
-                case "11":
-                    logger.info("Volba 11: Vyhladavanie clena podla priezviska")
-                    kniznica.najdi_clena_podla_priezviska()
-
-                case "12":
-                    logger.info("Volba 12: Vymazanie clena")
-                    kniznica.vypis_zoznam()
-                    kniznica.vymaz_clena()
-
-                case "13":
-                    logger.info("Volba 13: Sledovanie pozicanych knih")
-                    kniznica.sledovanie_pozicanych()
-
-                case "14":
-                    logger.info("Volba 14: Zobrazenie knih clena")
-                    kniznica.vypis_zoznam()
-                    kniznica.zobrazit_knihy_clen()
-
-                case "15":
-                    logger.info("Volba 15: Predlzenie vypozicky")
-                    kniznica.sledovanie_pozicanych()
-                    kniznica.preldzenie_vypozicky()
-                    kniznica.sledovanie_pozicanych()
-
-                case "e":
-                    logger.info("Uzivatel ukoncil program")
-                    print("Ukončili ste program.")
-                    break
-
-                case _:
-                    logger.warning(f"Neplatna volba: {volba}")
-                    print("Zadali ste neplatnú voľbu. Skúste ešte raz.")
-
-    logger.info("Program je ukonceny!")
-
-if __name__ == '__main__':
-    print("Script is running")
-
-    spusti_program()

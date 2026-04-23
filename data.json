@@ -12,7 +12,8 @@
         "priezvisko_clena": "Vrabcekova",
         "rok_narodenia": 2000,
         "zoznam_pozicanych": [
-            3
+            3,
+            25
         ]
     },
     {
@@ -27,22 +28,13 @@
         "meno_clena": "Gabriel",
         "priezvisko_clena": "Benian",
         "rok_narodenia": 1993,
-        "zoznam_pozicanych": [
-            4
-        ]
+        "zoznam_pozicanych": []
     },
     {
         "id": 5,
         "meno_clena": "Veronika",
         "priezvisko_clena": "Hýllová",
         "rok_narodenia": 1989,
-        "zoznam_pozicanych": []
-    },
-    {
-        "id": 7,
-        "meno_clena": "Júlia",
-        "priezvisko_clena": "Vrabčeková",
-        "rok_narodenia": 1997,
         "zoznam_pozicanych": []
     },
     {
@@ -59,13 +51,29 @@
         "meno_clena": "Gabriela",
         "priezvisko_clena": "Sulin",
         "rok_narodenia": 1996,
-        "zoznam_pozicanych": []
+        "zoznam_pozicanych": [
+            26
+        ]
     },
     {
         "id": 10,
         "meno_clena": "Uršula",
         "priezvisko_clena": "Jelinková",
         "rok_narodenia": 1988,
+        "zoznam_pozicanych": []
+    },
+    {
+        "id": 12,
+        "meno_clena": "Júlia",
+        "priezvisko_clena": "Vrabčeková",
+        "rok_narodenia": 1997,
+        "zoznam_pozicanych": []
+    },
+    {
+        "id": 13,
+        "meno_clena": "Perpetua",
+        "priezvisko_clena": "Gallová",
+        "rok_narodenia": 1977,
         "zoznam_pozicanych": []
     }
 ]

@@ -3,43 +3,49 @@ Konfiguracia loguru loggera pre projekt Kniznica
 Autor: Terezia Pirosikova
 Datum: 2026
 """
-from loguru import logger
 import sys
 import os
+from typing import Callable, Any
 
-def setup_logger():
+from loguru import logger
+
+
+def setup_logger(level: str = "INFO") -> None:
     """
-    Nastavuje sa loguru logger s roznymi urovnami a vystupmi
+    Nastavuje sa loguru logger s roznymi urovnami a vystupmi. 
+    
+    Args:
+    level: Uroven logovania: INFO, DEBUG, WARNING, ERROR, CRITICAL
     """
-    """
-    vytvorenie priecinku pre logy, ak neexistuje.
-    """
+    level_upper = level.upper()
+
+# Vytvorenie priecinku pre logy
     log_dir = "logs"
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
         print(f"Vytvoreny precinok: {log_dir}")
-    
+
+# odstranenie existujucich handlerov
     logger.remove()
 
-    """
-    Konzolovy vystup:
-    """
+ # Konzolovy vystup:
     logger.add(
         sys.stderr,
-        format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> | <level>{message}</level>",
-        level = "INFO",
+        format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | "
+        "<level>{level: <8}</level> | "
+        "<cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> |"
+        " <level>{message}</level>",
+        level = "WARNING",
         colorize = True,
         backtrace = True,
         diagnose = True
     )
 
-    """
-    Logy debyg a vyssie ukladane do suboru
-    """
+#   Ukladanie logov debug do suboru
     logger.add(
         os.path.join(log_dir, "app_{time:YYYY-MM-DD}.log"),
         format = "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} | {message}",
-        level = "DEBUG",
+        level = level_upper,
         rotation = "00:00",
         retention = "30 days",
         compression = "zip",
@@ -48,12 +54,10 @@ def setup_logger():
         diagnose = True
     )
 
-    """
-    Error a Critical logy
-    """
+#   Chybove logy (ERROR a vyssie)
     logger.add(
-        os.path.join(log_dir, "errors_{time: YYYY-MM-DD}.log"),
-        format = "{time: YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} | {message}",
+        os.path.join(log_dir, "errors_{time:YYYY-MM-DD}.log"),
+        format = "{time:YYYY-MM-DD HH:mm:ss} | {level: <8} | {name}:{function}:{line} | {message}",
         level = "ERROR",
         rotation = "10 MB",
         retention = "90 days",
@@ -62,10 +66,10 @@ def setup_logger():
         backtrace = True,
         diagnose = True
     )
+    logger.info(f"Loguru logger nakonfigurovany s urovnou: {level_upper}")
 
-    """
-    JSON format
-    """
+#   JSON format
+
     logger.add(
         os.path.join(log_dir, "app_json_{time:YYYY-MM-DD}.log"),
         format = "{message}",
@@ -77,19 +81,15 @@ def setup_logger():
         serialize = True
     )
     logger.info("Loguru logger je nakonfigurovany")
-    logger.debug("Logy su ulozene v priecinku: {os.path.abspath(log_dir)}")
+    #logger.debug("Logy su ulozene v priecinku: {os.path.abspath(log_dir)}")
 
-    return logger
 
-"""
-Inicializacia sa spusti pri importe
-"""
+# Inicializacia sa spusti pri importe
 setup_logger()
 
-"""
-pomocne funkcie
-"""
-def set_level(level: str):
+# pomocne funkcie
+
+def set_level(level: str) -> None:
     """
     zmeni sa uroven logovania
 
@@ -98,17 +98,22 @@ def set_level(level: str):
     Priklad:
     set_level("DEBUG")
     """
+    valid_levels = ["INFO","DEBUG","WARNING","ERROR","CRITICAL"]
+    level_upper = level.upper()
 
-    logger.remove()
-    setup_logger()
-    logger.info("Uroven logovania je zmenena na: {level}")
+    if level_upper not in valid_levels:
+        logger.error(f"Neplatna uroven: {level}. Povolene: {valid_levels}")
+        return
 
-def log_function_call(func):
+    setup_logger(level_upper)
+    logger.info(f"Uroven logovania je zmenena na: {level_upper}")
+
+def log_function_call(func: Callable[..., Any]) -> Callable[..., Any]:
     """
     Dekorator pre automaticke logovanie volania funkcii:
     """
 
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
         logger.debug(f"Volanie funkcie: {func.__name__} s args = {args}, kwargs = {kwargs}")
         try:
             result = func(*args, **kwargs)
@@ -118,8 +123,8 @@ def log_function_call(func):
             logger.error(f"Chyba vo funkcii {func.__name__}: {e}")
             raise
     return wrapper
-    
-    """
-    Export
-    """
-    __all__ = ['logger','set_level','log_function_call']
+
+
+# Export
+
+__all__ = ['logger','set_level','log_function_call']
