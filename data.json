@@ -75,5 +75,12 @@
         "priezvisko_clena": "Gallová",
         "rok_narodenia": 1977,
         "zoznam_pozicanych": []
+    },
+    {
+        "id": 16,
+        "meno_clena": "Zuzana",
+        "priezvisko_clena": "Simple",
+        "rok_narodenia": 2006,
+        "zoznam_pozicanych": []
     }
 ]

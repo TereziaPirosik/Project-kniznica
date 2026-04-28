@@ -2,7 +2,7 @@
 
 from datetime import datetime, timedelta
 from typing import Optional
-from KniznicnyZaznam import KniznicnyZaznam
+from kniznicny_zaznam import KniznicnyZaznam
 
 from logger_conf import logger
 

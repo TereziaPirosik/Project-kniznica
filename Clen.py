@@ -1,7 +1,7 @@
 """Modul pre triedu Clen"""
 
 from typing import Optional, ClassVar
-from KniznicnyZaznam import KniznicnyZaznam
+from kniznicny_zaznam import KniznicnyZaznam
 
 from logger_conf import logger
 
@@ -26,7 +26,7 @@ class Clen(KniznicnyZaznam):
         self.meno_clena: str = meno_clena
         self.priezvisko_clena: str = priezvisko_clena
         self.rok_narodenia: int = rok_narodenia
-        self.zoznam_pozicanych: list[int] = zoznam_pozicanych if zoznam_pozicanych is not None else []
+        self.zoznam_pozicanych: list[int] = zoznam_pozicanych if zoznam_pozicanych else []
 
         logger.info(
             f"Clen vytvoreny: ID {self.id}, {meno_clena} {priezvisko_clena},"
@@ -38,6 +38,13 @@ class Clen(KniznicnyZaznam):
         Vrati textovu reprezentaciu clena.
         """
         return f"{self.id}: {self.meno_clena} {self.priezvisko_clena} {self.rok_narodenia} {self.zoznam_pozicanych}"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Clen):
+            return NotImplemented
+        return (self.meno_clena.lower() == other.meno_clena.lower() and
+                self.priezvisko_clena.lower() ==other.priezvisko_clena.lower() and
+                self.rok_narodenia == other.rok_narodenia)
 
     def pozicaj_si_knihu(self, kniha_id: int) -> None:
         """

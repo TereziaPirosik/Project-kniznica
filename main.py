@@ -1,8 +1,8 @@
 """Kniznicny system - hlavny program"""
 
-from Kniha import Kniha
-from Clen import Clen
-from Kniznica_ado_projekt import Kniznica
+from kniha import Kniha
+from clen import Clen
+from kniznica_ado_projekt import Kniznica
 from logger_conf import logger
 
 def menu() -> None:

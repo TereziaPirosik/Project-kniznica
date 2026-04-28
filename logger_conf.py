@@ -21,9 +21,7 @@ def setup_logger(level: str = "INFO") -> None:
 
 # Vytvorenie priecinku pre logy
     log_dir = "logs"
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
-        print(f"Vytvoreny precinok: {log_dir}")
+    os.makedirs(log_dir, exist_ok=True)
 
 # odstranenie existujucich handlerov
     logger.remove()
@@ -123,8 +121,3 @@ def log_function_call(func: Callable[..., Any]) -> Callable[..., Any]:
             logger.error(f"Chyba vo funkcii {func.__name__}: {e}")
             raise
     return wrapper
-
-
-# Export
-
-__all__ = ['logger','set_level','log_function_call']

@@ -3,9 +3,9 @@
 import json
 from datetime import datetime, timedelta
 from typing import Optional, Callable, Any,TypeVar
-from Kniha import Kniha
-from Clen import Clen
-from KniznicnyZaznam import KniznicnyZaznam
+from kniha import Kniha
+from clen import Clen
+from kniznicny_zaznam import KniznicnyZaznam
 
 from logger_conf import logger, log_function_call
 
@@ -169,7 +169,7 @@ class Kniznica:
 
         logger.info(f"Najdenych {len(clenovia)}clenov")
 
-        clen: Optional[Clen] = None
+        clen: Optional[Clen]
 
         if len(clenovia) > 1:
             logger.debug("Viac clenov najdenych - vyzaduje sa vyber")
@@ -180,6 +180,11 @@ class Kniznica:
                 clen = self.najdi_clena_podla_id(id_clena)
                 logger.info(f"Vybrany clen: {clen.meno_clena} {clen.priezvisko_clena} (ID: {id_clena})")
 
+                if clen is None:
+                    logger.error(f"Clen is ID {id_clena} nebol najdeny.")
+                    print(f"Clen s ID {id_clena} neexistuje.")
+                    return False
+                logger.info(f"Vybrany clen: {clen.meno_clena} {clen.priezvisko_clena} (ID: {id_clena})")
             except ValueError:
                 logger.error("Neplatne ID clena - ValueError")
                 print("Neplatné ID člena.")
@@ -187,7 +192,6 @@ class Kniznica:
         else:
             clen = clenovia[0]
             logger.info(f"Automaticky vybrany clen: {clen.meno_clena} {clen.priezvisko_clena} (ID: {clen.id})")
-        assert clen is not None, "Clen musi byt vybrany!"
 
         logger.info(f"Pozicanie knihy '{kniha.nazov_knihy}' clenovi {clen.meno_clena} {clen.priezvisko_clena}")
 
@@ -455,15 +459,13 @@ class Kniznica:
         logger.debug(f"Zadane priezvisko: {priezvisko_clena}")
         rok_narodenia: int = int(input("Napíš rok narodenia: "))
         logger.debug(f"Zadany rok narodenia: {rok_narodenia}")
-        zoznam_pozicanych: list[int] = []
+        #zoznam_pozicanych: list[int] = []
 
-        novy_clen: Clen = Clen(meno_clena, priezvisko_clena, rok_narodenia, zoznam_pozicanych)
+        novy_clen: Clen = Clen(meno_clena, priezvisko_clena, rok_narodenia)
         logger.debug(f"Vytvoreny novy objekt clena s ID: {novy_clen.id}")
 
         for clen in self.zoznam_clenov:
-            if (clen.meno_clena.lower() == meno_clena.lower() and
-                clen.priezvisko_clena.lower() == priezvisko_clena.lower() and
-                clen.rok_narodenia == rok_narodenia):
+            if clen == novy_clen:
                 logger.warning(f"Clen {meno_clena} {priezvisko_clena} {rok_narodenia} uz existuje v zozname")
                 print(f"Tento člen {meno_clena} {priezvisko_clena} {rok_narodenia} už existuje v zozname.")
                 return False
@@ -669,8 +671,7 @@ class Kniznica:
         logger.debug(f"Pocet knih na ulozenie: {len(self.knizny_zoznam)}")
         kniha_to_dict: list[dict[str, Any]] = []
         for kniha in self.knizny_zoznam:
-            data_in_dict: dict[str, Any] = vars(kniha)
-            kniha_to_dict.append(data_in_dict)
+            kniha_to_dict.append(kniha.__dict__)
 
         logger.debug(f"Konverzia {len(kniha_to_dict)} knih do dict formatu dokoncena")
 
@@ -690,8 +691,7 @@ class Kniznica:
         logger.debug(f"Pocet clenov na ulozenie: {len(self.zoznam_clenov)}")
         clen_to_dict: list[dict[str, Any]] = []
         for person in self.zoznam_clenov:
-            data_in_dict: dict[str, Any] = vars(person)
-            clen_to_dict.append(data_in_dict)
+            clen_to_dict.append(person.__dict__)
 
         logger.debug(f"Konverzia {len(clen_to_dict)} clenov do dict formatu dokoncena")
         #[person.clen_dict() for person in self.zoznam_clenov] - kratsi zapis for cyklu
